@@ -1,0 +1,32 @@
+{
+  "name": "is",
+  "version": "1.0.0",
+  "description": "indra-select",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felansu/indreval.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felansu/indreval/issues"
+  },
+  "homepage": "https://github.com/felansu/indreval#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "browserify": "^14.1.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-uglify": "^2.0.1",
+    "gulp-util": "^3.0.8",
+    "jshint": "^2.9.4",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

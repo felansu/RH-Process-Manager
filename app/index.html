@@ -1,0 +1,90 @@
+<!DOCTYPE html >
+<html ng-app="is" lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>IS - Indra Select</title>
+
+    <link rel="stylesheet" href="angular-material.min.css">
+    <link rel="stylesheet" href="angular-material-sidemenu.css">
+    <link rel="stylesheet" href="ui-grid.min.css">
+    <link rel="stylesheet" href="material-icons.css">
+    <link rel="stylesheet" href="materialize.min.css">
+    <link rel="stylesheet" href="views/login/style.css">
+
+    <script src="dependencies.min.js"></script>
+    <script src="main.js"></script>
+    <script src="vendor.min.js"></script>
+
+</head>
+
+<body ng-cloak ng-controller="DashboardController as vm">
+
+<div ng-if="vm.isUsuarioLogado()">
+
+    <div layout="row" class="blue accent-4" layout-align="space-between center">
+        <div>
+            <md-button class="md-icon-button collapse"
+                       aria-label="Menu Lateral"
+                       ng-click="vm.openSideNavPanel()">
+                <md-tooltip>Menu</md-tooltip>
+                <md-icon class="material-icons white-text">menu</md-icon>
+            </md-button>
+
+            <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+
+                <md-toolbar layout="row" class="blue accent-4 menu-lateral">
+                    <div class="md-toolbar-tools blue accent-4">
+                        <span flex></span>
+                        <md-button class="md-icon-button" aria-label="Fechar Menu Lateral"
+                                   ng-click="vm.closeSideNavPanel()">
+                            <md-tooltip>Fechar</md-tooltip>
+                            <md-icon class="material-icons">close</md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+
+                <md-content>
+                    <md-sidemenu>
+                        <md-subheader>Menu</md-subheader>
+
+                        <md-button ng-click="vm.alterarRota('dashboard')">
+                            <i class="material-icons left">dashboard</i>Menu Principal
+                        </md-button>
+
+                        <md-button ng-click="vm.alterarRota('programa')">
+                            <i class="material-icons left">create_new_folder</i>Programas
+                        </md-button>
+
+                        <md-button ng-click="vm.alterarRota('avaliador')">
+                            <i class="material-icons left">spellcheck</i>Avaliadores
+                        </md-button>
+
+                        <md-button ng-click="vm.alterarRota('candidato')">
+                            <i class="material-icons left">face</i>Candidatos
+                        </md-button>
+
+                        <md-button ng-click="vm.alterarRota('criterio')">
+                            <i class="material-icons left">filter_list</i>Criterios
+                        </md-button>
+
+                    </md-sidemenu>
+                </md-content>
+            </md-sidenav>
+        </div>
+        <div class="nav-buttons">
+            <md-button class="md-icon-button collapse"
+                       aria-label="Menu Lateral"
+                       ng-click="vm.signOut()">
+                <md-tooltip>Sair</md-tooltip>
+                <i class="material-icons white-text">exit_to_app</i>
+            </md-button>
+        </div>
+    </div>
+</div>
+<ui-view>
+</ui-view>
+</body>
+</html>

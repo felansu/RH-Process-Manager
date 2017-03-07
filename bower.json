@@ -1,0 +1,34 @@
+{
+  "name": "is",
+  "description": "indra-select",
+  "main": "index.js",
+  "authors": [
+    "felansu <gaferran@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/felansu/indreval",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "v1.5.11",
+    "angular-animate": "v1.5.11",
+    "angular-aria": "v1.5.11",
+    "angular-material": "^1.1.3",
+    "angular-material-sidemenu": "^1.0.1",
+    "angular-ui-grid": "^4.0.2",
+    "angular-ui-router": "^0.4.2",
+    "jquery": "^3.1.1",
+    "material-design-icons": "^3.0.1",
+    "angular-materialize": "^0.2.2",
+    "materialize": "^0.98.0",
+    "moment": "^2.17.1",
+    "firebase": "^3.7.0",
+    "angularfire": "^2.3.0",
+    "angular-local-storage": "^0.5.2"
+  }
+}

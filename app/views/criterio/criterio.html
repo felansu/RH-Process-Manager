@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col s6 offset-s3">
+        <div class="card white hoverable">
+            <div class="card-content">
+                <span class="card-title">Cadastro de {{vm.tituloPagina}}</span>
+                <div class="row">
+
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">description</i>
+                        <input id="descricao" type="text">
+                        <label for="descricao">Descrição</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">extension</i>
+                        <select>
+                            <option value="" disabled selected>Tipo de resposta</option>
+                            <option value="1">Numérico</option>
+                            <option value="2">Verdadeiro / Falso</option>
+                            <option value="3">Texto</option>
+                        </select>
+                        <label for="descricao">Tipo</label>
+                    </div>
+
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect waves-light btn">Salvar</a>
+                    <a class="waves-effect waves-light btn">Limpar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

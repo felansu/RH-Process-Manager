@@ -1,0 +1,26 @@
+<div class="container" ng-controller="LoginController as vm">
+    <div class="row">
+
+        <div class="col s6 offset-s3 z-depth-1" id="panell">
+            <h5 id="title" class="blue accent-4">Autenticação</h5>
+            <form>
+                <div class="input-field" id="username">
+                    <input type="text" class="validate" ng-model="vm.usuario">
+                    <label for="username">Usuário</label>
+                </div>
+                <div class="input-field" id="password">
+                    <input type="password" class="validate" ng-model="vm.senha">
+                    <label for="password">Senha</label>
+                </div>
+                <p>
+                    <input type="checkbox" id="remember"/>
+                    <label for="remember" id="checkbox">Lembrar</label>
+                </p>
+                <button type="button" id="loginbtn" class="btn btn-success blue accent-4"
+                        ng-click="vm.signIn()">Login
+                </button>
+
+            </form>
+        </div>
+    </div>
+</div>
