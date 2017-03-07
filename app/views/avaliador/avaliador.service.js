@@ -3,31 +3,23 @@
 
 	angular
 		.module('is')
-		.service('MainService', MainService);
+		.service('AvaliadorService', MainService);
 
 	/* @ngInject */
 	function MainService() {
 		var self = this;
 
-		self.obterDadosMartita = obterDadosMartita;
+		self.salvar = salvar;
 
-		function obterDadosMartita() {
-			// abreConexao();
-			// var ref = firebase.database().ref('martita').limitToLast(100);
-			// return $firebaseArray(ref);
-		}
-
-		function abreConexao() {
-			// if (existeConexaoAberta()) {
-			// 	var config = {
-			// 		databaseURL: "https://martita-50f93.firebaseio.com"
-			// 	};
-			// 	firebase.initializeApp(config);
-			// }
-		}
-
-		function existeConexaoAberta() {
-			// return !firebase.apps.length
+		function salvar(avaliador) {
+			return firebase.database()
+				.ref()
+				.child("avaliadores")
+				.push(avaliador)
+				.then(function (result) {
+					console.log(result.key);
+					return !!result.key;
+				});
 		}
 	}
 

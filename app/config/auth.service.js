@@ -16,6 +16,7 @@
 		self.signOut = signOut;
 		self.isUsuarioLogado = isUsuarioLogado;
 		self.verificarToken = verificarToken;
+		self.firebaseIsInitialized = firebaseIsInitialized;
 
 		function firebaseIsInitialized() {
 			if (!firebase.apps.length) {

@@ -20,6 +20,7 @@
 		init();
 
 		function init() {
+			AuthService.firebaseIsInitialized();
 			$state.go(vm.isUsuarioLogado() ? 'dashboard' : 'login');
 		}
 
