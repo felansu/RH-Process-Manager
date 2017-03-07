@@ -7,11 +7,16 @@
 		.controller('CandidatoController', CandidatoController);
 
 	/* @ngInject */
-	function CandidatoController() {
+	function CandidatoController(CandidatoService) {
 
 		var vm = this;
 
 		vm.titulo = 'Candidato';
+		vm.candidato = {};
+
+		vm.salvar = salvar;
+		vm.limpar = limpar;
+
 
 		init();
 
@@ -38,6 +43,16 @@
 					$('select').material_select();
 				}
 			);
+		}
+
+		function salvar() {
+			if (CandidatoService.salvar(vm.candidato)) {
+				vm.limpar();
+			}
+		}
+
+		function limpar() {
+			vm.candidato = {};
 		}
 
 

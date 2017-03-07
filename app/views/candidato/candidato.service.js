@@ -3,19 +3,19 @@
 
 	angular
 		.module('is')
-		.service('ProgramaService', ProgramaService);
+		.service('CandidatoService', CandidatoService);
 
 	/* @ngInject */
-	function ProgramaService() {
+	function CandidatoService() {
 		var self = this;
 
 		self.salvar = salvar;
 
-		function salvar(programa) {
+		function salvar(candidato) {
 			return firebase.database()
 				.ref()
-				.child("programas")
-				.push(programa)
+				.child("candidatos")
+				.push(candidato)
 				.then(function (result) {
 					console.log(result.key);
 					return !!result.key;
@@ -24,3 +24,4 @@
 	}
 
 })();
+

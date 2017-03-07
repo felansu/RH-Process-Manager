@@ -7,13 +7,9 @@
 		.controller('ProgramaController', ProgramaController);
 
 	/* @ngInject */
-	function ProgramaController() {
+	function ProgramaController(ProgramaService) {
 
-		var vm = this;
-
-		vm.tituloPagina = 'Programa';
-
-		$(document).ready(function() {
+		$(document).ready(function () {
 			$('select').material_select();
 			$('.datepicker').pickadate({
 					format: 'dd/mm/yyyy',
@@ -34,5 +30,23 @@
 				}
 			);
 		});
+
+		var vm = this;
+
+		vm.tituloPagina = 'Programa';
+		vm.programa = {};
+
+		vm.salvar = salvar;
+		vm.limpar = limpar;
+
+		function salvar() {
+			if (ProgramaService.salvar(vm.programa)) {
+				vm.limpar();
+			}
+		}
+
+		function limpar() {
+			vm.programa = {};
+		}
 	}
 })();

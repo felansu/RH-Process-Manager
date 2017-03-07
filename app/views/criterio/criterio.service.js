@@ -3,31 +3,34 @@
 
 	angular
 		.module('is')
-		.service('MainService', MainService);
+		.service('CriterioService', CriterioService);
 
 	/* @ngInject */
-	function MainService() {
+	function CriterioService() {
 		var self = this;
 
-		self.obterDadosMartita = obterDadosMartita;
+		self.salvar = salvar;
+		self.listar = listar;
 
-		function obterDadosMartita() {
-			// abreConexao();
-			// var ref = firebase.database().ref('martita').limitToLast(100);
-			// return $firebaseArray(ref);
+		function salvar(criterio) {
+			return firebase.database()
+				.ref()
+				.child("criterios")
+				.push(criterio)
+				.then(function (result) {
+					console.log(result.key);
+					return !!result.key;
+				});
 		}
 
-		function abreConexao() {
-			// if (existeConexaoAberta()) {
-			// 	var config = {
-			// 		databaseURL: "https://martita-50f93.firebaseio.com"
-			// 	};
-			// 	firebase.initializeApp(config);
-			// }
-		}
-
-		function existeConexaoAberta() {
-			// return !firebase.apps.length
+		function listar() {
+			return firebase.database()
+				.ref()
+				.child('criterios')
+				.once('value')
+				.then(function (response) {
+					return response.val();
+				});
 		}
 	}
 

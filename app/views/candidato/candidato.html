@@ -1,69 +1,82 @@
-<div class="row">
+<div class="row" ng-controller="CandidatoController as vm">
     <div class="col s8 offset-s2">
         <div class="card white hoverable">
             <div class="card-content">
                 <span class="card-title">Cadastro de {{vm.titulo}}</span>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="nome" type="text" class="validate">
-                        <label for="nome">Nome completo</label>
+                <form>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="nome" type="text" class="validate"
+                                   ng-model="vm.candidato.nome">
+                            <label for="nome">Nome completo</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">phone</i>
+                            <input id="telefone" type="text" class="validate"
+                                   ng-model="vm.candidato.telefone">
+                            <label for="telefone">Telefone</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">email</i>
+                            <input id="email" type="email" class="validate"
+                                   ng-model="vm.candidato.email">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">date_range</i>
+                            <input type="text" class="datepicker" id="dataAgenda"
+                                   ng-model="vm.candidato.dataNascimento">
+                            <label for="dataAgenda">Data de nascimento</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">class</i>
+                            <select ng-model="vm.candidato.sexo">
+                                <option value="" disabled selected>Sexo</option>
+                                <option value="F">Feminino</option>
+                                <option value="M">Masculino</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">phone</i>
-                        <input id="telefone" type="text" class="validate">
-                        <label for="telefone">Telefone</label>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <i class="material-icons prefix">class</i>
+                            <select ng-model="vm.candidato.formacao">
+                                <option value="" disabled selected>Formação</option>
+                                <option value="Segundo Grau">Segundo Grau</option>
+                                <option value="Graduação">Graduação</option>
+                                <option value="Pós graduação">Pós graduação</option>
+                                <option value="Mestrado">Mestrado</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s8">
+                            <i class="material-icons prefix">school</i>
+                            <input id="curso" type="text" class="validate"
+                                   ng-model="vm.candidato.curso">
+                            <label for="curso">Curso</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">date_range</i>
+                            <input type="text" class="datepicker" id="formacaoDataInicio"
+                                   ng-model="vm.candidato.dataInicio">
+                            <label for="formacaoDataInicio">Data inicio</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">date_range</i>
+                            <input type="text" class="datepicker" id="formacaoDataFim"
+                                   ng-model="vm.candidato.dataFim">
+                            <label for="formacaoDataFim">Data fim</label>
+                        </div>
                     </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">email</i>
-                        <input id="email" type="email" class="validate">
-                        <label for="email">Email</label>
+                    <div class="card-action">
+                        <button class="waves-effect waves-light btn"
+                                ng-click="vm.salvar()">Salvar
+                        </button>
+                        <button class="waves-effect waves-light btn"
+                                ng-click="vm.limpar()">Limpar
+                        </button>
                     </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">date_range</i>
-                        <input type="date" class="datepicker" id="dataAgenda">
-                        <label for="dataAgenda">Data de nascimento</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">class</i>
-                        <select>
-                            <option value="" disabled selected>Sexo</option>
-                            <option value="1">Feminino</option>
-                            <option value="2">Masculino</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s4">
-                        <i class="material-icons prefix">class</i>
-                        <select>
-                            <option value="" disabled selected>Formação</option>
-                            <option value="1">Segundo Grau</option>
-                            <option value="2">Graduação</option>
-                            <option value="3">Pós graduação</option>
-                            <option value="4">Mestrado</option>
-                        </select>
-                    </div>
-                    <div class="input-field col s8">
-                        <i class="material-icons prefix">school</i>
-                        <input id="curso" type="text" class="validate">
-                        <label for="curso">Curso</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">date_range</i>
-                        <input type="date" class="datepicker" id="formacaoDataInicio">
-                        <label for="formacaoDataInicio">Data inicio</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">date_range</i>
-                        <input type="date" class="datepicker" id="formacaoDataFim">
-                        <label for="formacaoDataFim">Data fim</label>
-                    </div>
-                </div>
-                <div class="card-action">
-                    <a class="waves-effect waves-light btn">Salvar</a>
-                    <a class="waves-effect waves-light btn">Limpar</a>
-                </div>
+                </form>
             </div>
         </div>
     </div>

@@ -1,33 +1,77 @@
-<div class="row">
+<div class="row" ng-controller="CriterioController as vm">
+    <div class="col s6 offset-s3">
+        <div class="card white hoverable">
+            <div class="card-content">
+
+                <table class="centered highlight">
+                    <thead>
+                    <tr>
+                        <th data-field="descricao">Descrição</th>
+                        <th data-field="tipo">Tipo</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="criterio in vm.criterios">
+                        <td>{{criterio.descricao}}</td>
+                        <td>{{criterio.tipo}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{teste}}
     <div class="col s6 offset-s3">
         <div class="card white hoverable">
             <div class="card-content">
                 <span class="card-title">Cadastro de {{vm.tituloPagina}}</span>
-                <div class="row">
+                <form>
+                    <div class="row">
 
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">description</i>
-                        <input id="descricao" type="text">
-                        <label for="descricao">Descrição</label>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">description</i>
+                            <input id="descricao"
+                                   type="text"
+                                   ng-model="vm.criterio.descricao">
+                            <label for="descricao">Descrição</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">extension</i>
+                            <select ng-model="vm.criterio.tipo">
+                                <option value="" disabled selected>Tipo de resposta</option>
+                                <option value="number">Numérico</option>
+                                <option value="boolean">Verdadeiro / Falso</option>
+                                <option value="text">Texto</option>
+                            </select>
+                            <label for="descricao">Tipo</label>
+                        </div>
+
                     </div>
-
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">extension</i>
-                        <select>
-                            <option value="" disabled selected>Tipo de resposta</option>
-                            <option value="1">Numérico</option>
-                            <option value="2">Verdadeiro / Falso</option>
-                            <option value="3">Texto</option>
-                        </select>
-                        <label for="descricao">Tipo</label>
+                    <div class="card-action">
+                        <button class="waves-effect waves-light btn"
+                                ng-click="vm.salvar()">Salvar
+                        </button>
+                        <button class="waves-effect waves-light btn"
+                                ng-click="vm.limpar()">Limpar
+                        </button>
                     </div>
-
-                </div>
-                <div class="card-action">
-                    <a class="waves-effect waves-light btn">Salvar</a>
-                    <a class="waves-effect waves-light btn">Limpar</a>
-                </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
+    <div class="col s4 offset-s4 center">
+        <md-button class="md-icon-button collapse"
+                   aria-label="Menu Lateral"
+                   ng-click="vm.listar()">
+            <md-tooltip>Listar</md-tooltip>
+            <md-icon class="material-icons">list</md-icon>
+        </md-button>
+        <md-button class="md-icon-button collapse"
+                   aria-label="Menu Lateral"
+                   ng-click="vm.cadastrar()">
+            <md-tooltip>Cadastrar</md-tooltip>
+            <md-icon class="material-icons">create</md-icon>
+        </md-button>
+    </div>
