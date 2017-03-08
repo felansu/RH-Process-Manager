@@ -27,7 +27,9 @@ var path = {
 		'bower_components/angular-material-sidemenu/dest/angular-material-sidemenu.js',
 		'bower_components/firebase/firebase.js',
 		'bower_components/angularfire/dist/angularfire.min.js',
-		'bower_components/angular-local-storage/dist/angular-local-storage.min.js'
+		'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
+		'bower_components/angular-toastr/dist/angular-toastr.js',
+		'bower_components/angular-toastr/dist/angular-toastr.tpls.js'
 	],
 	JS: [
 		'app/assets/**/*.js',
@@ -37,6 +39,7 @@ var path = {
 		'app/config/auth.service.js',
 
 		'app/shared/services/is-storage.service.js',
+		'app/shared/services/is-alert.service.js',
 
 		'app/views/login/login.controller.js',
 		'app/views/dashboard/dashboard.controller.js',
@@ -56,6 +59,7 @@ var path = {
 	CSS: [
 		'app/**/*.html',
 		'app/**/*.css',
+		'app/views/**/*.css',
 		'app/**/*.json',
 		'app/views/login/style.css',
 		'bower_components/angular-material/angular-material.min.css',
@@ -64,10 +68,17 @@ var path = {
 		'bower_components/material-design-icons/iconfont/material-icons.css',
 		'bower_components/materialize/dist/css/materialize.min.css',
 		'bower_components/material-design-icons/iconfont/**/*.{ttf,woff,woff2,eof,svg}',
-		'bower_components/angular-ui-grid/**/*.{ttf,woff,woff2,eof,svg}'
+		'bower_components/angular-ui-grid/**/*.{ttf,woff,woff2,eof,svg}',
+		'bower_components/angular-toastr/dist/angular-toastr.css'
 	],
 	FONTES: [
 		'bower_components/materialize/fonts/**/*.{ttf,woff,woff2,eof,svg}'
+	],
+	WATCH: [
+		'./app/views/**/*.*',
+		'./app/config/*.*',
+		'./app/shared/**/*.*',
+		'./app/*.*'
 	]
 };
 gulp.task('lint', function () {
@@ -129,6 +140,6 @@ gulp.task('browser-sync', ['build'], function () {
 
 gulp.task('default', ['browser-sync'], function () {
 
-	gulp.watch(["./app/views/**/*.*", "./app/*.*"], ["build"]);
+	gulp.watch(path.WATCH, ["build"]);
 	gulp.watch("./public/**/*.*").on('change', browserSync.reload);
 });

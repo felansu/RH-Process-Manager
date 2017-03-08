@@ -1,77 +1,87 @@
 <div class="row" ng-controller="CriterioController as vm">
-    <div class="col s6 offset-s3">
+
+    <div class="col s8 offset-s2 card-centered">
         <div class="card white hoverable">
             <div class="card-content">
 
-                <table class="centered highlight">
-                    <thead>
-                    <tr>
-                        <th data-field="descricao">Descrição</th>
-                        <th data-field="tipo">Tipo</th>
-                    </tr>
-                    </thead>
+                <md-button ng-if="vm.listaCarregada" class="md-icon-button collapse right"
+                           aria-label="Lista de criterios">
+                    <md-tooltip>Lista de critérios</md-tooltip>
+                    <md-icon class="material-icons right activator">list</md-icon>
+                </md-button>
 
-                    <tbody>
-                    <tr ng-repeat="criterio in vm.criterios">
-                        <td>{{criterio.descricao}}</td>
-                        <td>{{criterio.tipo}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    {{teste}}
-    <div class="col s6 offset-s3">
-        <div class="card white hoverable">
-            <div class="card-content">
                 <span class="card-title">Cadastro de {{vm.tituloPagina}}</span>
-                <form>
+
+                <form class="conteudo">
                     <div class="row">
 
                         <div class="input-field col s12">
                             <i class="material-icons prefix">description</i>
                             <input id="descricao"
                                    type="text"
-                                   ng-model="vm.criterio.descricao">
+                                   ng-model="vm.criterio.descricao"
+                                   autofocus>
                             <label for="descricao">Descrição</label>
                         </div>
 
                         <div class="input-field col s12">
                             <i class="material-icons prefix">extension</i>
-                            <select ng-model="vm.criterio.tipo">
+                            <select ng-model="vm.criterio.tipo"
+                                    ng-options="tipo.id as tipo.descricao for tipo in vm.tiposCriterios">
                                 <option value="" disabled selected>Tipo de resposta</option>
-                                <option value="number">Numérico</option>
-                                <option value="boolean">Verdadeiro / Falso</option>
-                                <option value="text">Texto</option>
                             </select>
                             <label for="descricao">Tipo</label>
                         </div>
-
                     </div>
                     <div class="card-action">
                         <button class="waves-effect waves-light btn"
-                                ng-click="vm.salvar()">Salvar
+                                ng-click="vm.salvar()"
+                                ng-disabled="!vm.criterio.descricao || !vm.criterio.tipo ">Salvar
                         </button>
                         <button class="waves-effect waves-light btn"
-                                ng-click="vm.limpar()">Limpar
+                                ng-click="vm.limpar()"
+                                ng-disabled="!vm.criterio.descricao || !vm.criterio.tipo ">Limpar
                         </button>
                     </div>
                 </form>
             </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Lista de {{vm.tituloPagina}}s<i
+                        class="material-icons right">close</i></span>
+                <div class="conteudo">
+                    <table class="highlight responsive-table">
+                        <thead>
+                        <tr>
+                            <th data-field="descricao" class="col m6">Descrição</th>
+                            <th data-field="tipo" class="col m4">Tipo</th>
+                            <th data-field="tipo" class="col m2">Ações</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr ng-repeat="(key, value) in vm.criterios">
+                            <td class="col m6">{{value.descricao}}</td>
+                            <td class="col m4">{{value.tipo}}</td>
+                            <td class="col m2">
+                                <md-button class="md-icon-button collapse"
+                                           aria-label="Editar critério"
+                                           ng-click="vm.editar(key)">
+                                    <md-tooltip>Editar</md-tooltip>
+                                    <md-icon class="material-icons">edit</md-icon>
+                                </md-button>
+
+                                <md-button class="md-icon-button collapse"
+                                           aria-label="Eliminar critério"
+                                           ng-click="vm.eliminar(key)">
+                                    <md-tooltip>Eliminar</md-tooltip>
+                                    <md-icon class="material-icons">delete</md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col s4 offset-s4 center">
-        <md-button class="md-icon-button collapse"
-                   aria-label="Menu Lateral"
-                   ng-click="vm.listar()">
-            <md-tooltip>Listar</md-tooltip>
-            <md-icon class="material-icons">list</md-icon>
-        </md-button>
-        <md-button class="md-icon-button collapse"
-                   aria-label="Menu Lateral"
-                   ng-click="vm.cadastrar()">
-            <md-tooltip>Cadastrar</md-tooltip>
-            <md-icon class="material-icons">create</md-icon>
-        </md-button>
-    </div>
+</div>

@@ -7,7 +7,7 @@
 		.controller('DashboardController', DashboardController);
 
 	/* @ngInject */
-	function DashboardController($state, $mdSidenav, AuthService, $location) {
+	function DashboardController($scope, $state, $mdSidenav, AuthService, $location) {
 
 		var vm = this;
 
@@ -22,6 +22,9 @@
 		function init() {
 			AuthService.firebaseIsInitialized();
 			$state.go(vm.isUsuarioLogado() ? 'dashboard' : 'login');
+			$(document).ready(function () {
+				$scope.$apply();
+			});
 		}
 
 		function alterarRota(state) {

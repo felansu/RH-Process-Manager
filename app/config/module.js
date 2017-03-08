@@ -10,7 +10,8 @@
 			'ngMaterial',
 			'ngMaterialSidemenu',
 			'firebase',
-			'LocalStorageModule'
+			'LocalStorageModule',
+			'toastr'
 		])
 		.config(function ($httpProvider) {
 			$httpProvider.interceptors.push(interceptor);
