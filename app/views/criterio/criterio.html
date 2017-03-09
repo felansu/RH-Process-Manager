@@ -24,14 +24,13 @@
                 <form class="separador">
                     <div class="row">
 
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">description</i>
-                            <input id="descricao"
-                                   type="text"
-                                   ng-model="vm.criterio.descricao"
-                                   autofocus>
-                            <label for="descricao">Descrição</label>
-                        </div>
+                        <is-input-text label="Descrição"
+                                       largura="12"
+                                       icone="description"
+                                       ng-model="vm.criterio.descricao"
+                                       ng-required="true">
+
+                        </is-input-text>
 
                         <div class="input-field col s12">
                             <i class="material-icons prefix">extension</i>
@@ -91,8 +90,6 @@
                                 <md-tooltip>Eliminar</md-tooltip>
                                 <a href="#" class="material-icons red-text">delete</a>
                             </md-button>
-
-
                         </td>
                     </tr>
                     </tbody>

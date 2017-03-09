@@ -38,6 +38,8 @@ var path = {
 		'app/config/rotas.js',
 		'app/config/auth.service.js',
 
+		'app/shared/directives/isInputText/is-input-text.directive.js',
+
 		'app/shared/services/is-storage.service.js',
 		'app/shared/services/is-alert.service.js',
 
