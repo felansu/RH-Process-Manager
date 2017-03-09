@@ -2,17 +2,26 @@
 
     <div class="col s8 offset-s2 card-centered">
         <div class="card white hoverable">
+
             <div class="card-content">
 
-                <md-button ng-if="vm.listaCarregada" class="md-icon-button collapse right"
-                           aria-label="Lista de criterios">
+                <md-button ng-if="vm.listaCarregada && !!vm.criterios" class="md-icon-button collapse right activator"
+                           aria-label="Lista de criterios"
+                           ng-click="vm.switchCard()">
                     <md-tooltip>Lista de critérios</md-tooltip>
-                    <md-icon class="material-icons right activator">list</md-icon>
+                    <i class="material-icons right">list</i>
                 </md-button>
 
-                <span class="card-title">Cadastro de {{vm.tituloPagina}}</span>
 
-                <form class="conteudo">
+                <div class="tituloCentralizado">
+                    <span class="card-title">Cadastro de {{vm.tituloPagina}}</span>
+                </div>
+
+                <div class="progress" ng-if="!vm.listaCarregada">
+                    <div class="indeterminate"></div>
+                </div>
+
+                <form class="separador">
                     <div class="row">
 
                         <div class="input-field col s12">
@@ -46,41 +55,48 @@
                 </form>
             </div>
             <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Lista de {{vm.tituloPagina}}s<i
-                        class="material-icons right">close</i></span>
-                <div class="conteudo">
-                    <table class="highlight responsive-table">
-                        <thead>
-                        <tr>
-                            <th data-field="descricao" class="col m6">Descrição</th>
-                            <th data-field="tipo" class="col m4">Tipo</th>
-                            <th data-field="tipo" class="col m2">Ações</th>
-                        </tr>
-                        </thead>
+                <md-button class="md-icon-button collapse right"
+                           aria-label="Fechar"
+                           ng-click="vm.switchCard()">
+                    <md-tooltip>Fechar</md-tooltip>
+                    <i class="material-icons right">close</i>
+                </md-button>
 
-                        <tbody>
-                        <tr ng-repeat="(key, value) in vm.criterios">
-                            <td class="col m6">{{value.descricao}}</td>
-                            <td class="col m4">{{value.tipo}}</td>
-                            <td class="col m2">
-                                <md-button class="md-icon-button collapse"
-                                           aria-label="Editar critério"
-                                           ng-click="vm.editar(key)">
-                                    <md-tooltip>Editar</md-tooltip>
-                                    <md-icon class="material-icons">edit</md-icon>
-                                </md-button>
-
-                                <md-button class="md-icon-button collapse"
-                                           aria-label="Eliminar critério"
-                                           ng-click="vm.eliminar(key)">
-                                    <md-tooltip>Eliminar</md-tooltip>
-                                    <md-icon class="material-icons">delete</md-icon>
-                                </md-button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="tituloCentralizado">
+                    <span class="card-title">Lista de {{vm.tituloPagina}}</span>
                 </div>
+                <table class="highlight separador">
+                    <thead>
+                    <tr>
+                        <th data-field="descricao" class="col l5 m4 s4">Descrição</th>
+                        <th data-field="tipo" class="col l4 m4 s4">Tipo</th>
+                        <th data-field="acoes" class="col l3 m4 s4 center">Ações</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="(key, value) in vm.criterios">
+                        <td class="col l5 m4 s4">{{value.descricao}}</td>
+                        <td class="col l4 m4 s4">{{value.tipo}}</td>
+                        <td class="col l3 m4 s4 center">
+                            <md-button class="md-icon-button semEspaco"
+                                       aria-label="Fechar"
+                                       ng-click="vm.editar(key)">
+                                <md-tooltip>Editar</md-tooltip>
+                                <a href="#" class="material-icons black-text">edit</a>
+                            </md-button>
+                            <md-button class="md-icon-button semEspaco"
+                                       aria-label="Fechar"
+                                       ng-click="vm.eliminar(key)">
+                                <md-tooltip>Eliminar</md-tooltip>
+                                <a href="#" class="material-icons red-text">delete</a>
+                            </md-button>
+
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

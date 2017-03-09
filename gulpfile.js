@@ -61,6 +61,7 @@ var path = {
 		'app/**/*.css',
 		'app/views/**/*.css',
 		'app/**/*.json',
+		'assets/css/style.css',
 		'app/views/login/style.css',
 		'bower_components/angular-material/angular-material.min.css',
 		'bower_components/angular-material-sidemenu/dest/angular-material-sidemenu.css',
@@ -75,10 +76,14 @@ var path = {
 		'bower_components/materialize/fonts/**/*.{ttf,woff,woff2,eof,svg}'
 	],
 	WATCH: [
-		'./app/views/**/*.*',
-		'./app/config/*.*',
-		'./app/shared/**/*.*',
-		'./app/*.*'
+		'app/views/**/*.*',
+		'app/assets/**/*.*',
+		'app/config/*.*',
+		'app/shared/**/*.*',
+		'app/*.*'
+	],
+	IMAGES: [
+		'app/assets/img/*.*'
 	]
 };
 gulp.task('lint', function () {
@@ -116,13 +121,19 @@ gulp.task('copy', ['browserify'], function () {
 		.pipe(browserSync.stream())
 });
 
+gulp.task('images', ['browserify'], function () {
+	gulp.src(path.IMAGES)
+		.pipe(gulp.dest('./public/assets/img/'))
+		.pipe(browserSync.stream())
+});
+
 gulp.task('fontes', ['browserify'], function () {
 	gulp.src(path.FONTES)
 		.pipe(gulp.dest('./public/fonts'))
 		.pipe(browserSync.stream())
 });
 
-gulp.task('build', ['lint', 'copy', 'fontes', 'dependencies', 'scripts']);
+gulp.task('build', ['lint', 'copy', 'images', 'fontes', 'dependencies', 'scripts']);
 
 gulp.task('browser-sync', ['build'], function () {
 	browserSync.init({

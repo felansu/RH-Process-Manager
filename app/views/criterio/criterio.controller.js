@@ -12,15 +12,18 @@
 		var vm = this;
 
 		vm.tituloPagina = 'Critério';
+
 		vm.criterio = {};
 		vm.criterios = [];
 		vm.select = {};
+		vm.cardReveal = {};
 		vm.tiposCriterios = [];
 
 		vm.salvar = salvar;
 		vm.editar = editar;
 		vm.eliminar = eliminar;
 		vm.limpar = limpar;
+		vm.switchCard = switchCard;
 
 		init();
 
@@ -60,7 +63,7 @@
 		function editar(key) {
 			vm.criterio = vm.criterios[key];
 			vm.criterio.key = key;
-			$('.card-reveal .card-title').click();
+			vm.switchCard();
 			var indexTipoCriterio = vm.tiposCriterios.map(function (e) {
 				return e.id;
 			}).indexOf(vm.criterio.tipo);
@@ -74,8 +77,7 @@
 					if (result) {
 						listar(function () {
 							if (!vm.criterios) {
-								$('.card-reveal .card-title').click();
-								vm.listaCarregada = false;
+								vm.switchCard();
 							}
 						});
 						IsAlertService.showSuccess('Registro eliminado !');
@@ -89,12 +91,17 @@
 			CriterioService.listar()
 				.then(function (result) {
 					vm.criterios = result;
-					vm.listaCarregada = !!vm.criterios;
+					vm.listaCarregada = true;
 					if (funcao) {
 						funcao();
 					}
 					$scope.$apply();
 				});
+		}
+
+		function switchCard() {
+			vm.cardReveal = $('.card-reveal .card-title') ? $('.card-reveal .card-title') : $('.card .activator');
+			vm.cardReveal.click();
 		}
 
 		function limpar() {
