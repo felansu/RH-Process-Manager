@@ -10,6 +10,7 @@
 		var self = this;
 
 		self.salvar = salvar;
+		self.listar = listar;
 
 		function salvar(candidato) {
 			return firebase.database()
@@ -19,6 +20,17 @@
 				.then(function (result) {
 					console.log(result.key);
 					return !!result.key;
+				});
+		}
+
+
+		function listar() {
+			return firebase.database()
+				.ref()
+				.child('candidatos')
+				.once('value')
+				.then(function (response) {
+					return response.val();
 				});
 		}
 	}

@@ -7,7 +7,7 @@
 		.controller('SelecaoController', SelecaoController);
 
 	/* @ngInject */
-	function SelecaoController(SelecaoService, IsAlertService, ProgramaService, $mdStepper, $scope) {
+	function SelecaoController(SelecaoService, IsAlertService, ProgramaService, AvaliadorService, CandidatoService, CriterioService, $mdStepper, $scope) {
 
 		var vm = this;
 
@@ -16,6 +16,9 @@
 		vm.selecao = {};
 		vm.selecoes = [];
 		vm.listaProgramas = {};
+		vm.listaAvaliadores = {};
+		vm.listaCandidatos = {};
+		vm.listaCriterios = {};
 
 		vm.cardReveal = {};
 
@@ -25,6 +28,9 @@
 		vm.limpar = limpar;
 		vm.switchCard = switchCard;
 		vm.listarProgramas = listarProgramas;
+		vm.listarAvaliadores = listarAvaliadores;
+		vm.listarCandidatos = listarCandidatos;
+		vm.listarCriterios = listarCriterios;
 		vm.next = next;
 		vm.back = back;
 
@@ -89,6 +95,36 @@
 				});
 		}
 
+		function listarAvaliadores() {
+			vm.listaAvaliadoresCarregada = false;
+			AvaliadorService.listar()
+				.then(function (result) {
+					vm.listaAvaliadores = result;
+					vm.listaAvaliadoresCarregada = true;
+					$scope.$applyAsync();
+				});
+		}
+
+		function listarCandidatos() {
+			vm.listaCandidatosCarregada = false;
+			CandidatoService.listar()
+				.then(function (result) {
+					vm.listaCandidatos = result;
+					vm.listaCandidatosCarregada = true;
+					$scope.$applyAsync();
+				});
+		}
+
+		function listarCriterios() {
+			vm.listaCriteriosCarregada = false;
+			CriterioService.listar()
+				.then(function (result) {
+					vm.listaCriterios = result;
+					vm.listaCriteriosCarregada = true;
+					$scope.$applyAsync();
+				});
+		}
+
 		function switchCard() {
 			vm.cardReveal = $('.card-reveal .card-title') ? $('.card-reveal .card-title') : $('.card .activator');
 			vm.cardReveal.click();
@@ -100,11 +136,13 @@
 
 		function next() {
 			var steppers = $mdStepper('selecao');
-
-			if (!vm.selecao.programa) {
-				steppers.error('Eita, falta definir o programa cara !');
-			} else {
-				steppers.next();
+			steppers.next();
+			if (steppers.currentStep === 1) {
+				vm.listarAvaliadores();
+			} else if (steppers.currentStep === 2) {
+				vm.listarCandidatos();
+			} else if (steppers.currentStep === 3) {
+				vm.listarCriterios();
 			}
 		}
 
