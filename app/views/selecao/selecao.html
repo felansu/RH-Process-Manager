@@ -1,0 +1,94 @@
+<div ng-controller="SelecaoController as vm">
+    <md-stepper id="selecao" md-linear="true">
+        <md-step md-label="Programa">
+            <md-step-body>
+                <div class="row">
+
+                    <div class="col s8 offset-s2 card-centered">
+                        <div class="card white hoverable">
+
+                            <div class="card-content">
+
+                                <md-button ng-if="vm.listaProgramasCarregada && !!vm.criterios"
+                                           class="md-icon-button collapse right activator"
+                                           aria-label="Lista de criterios"
+                                           ng-click="vm.switchCard()">
+                                    <md-tooltip>Lista de critérios</md-tooltip>
+                                    <i class="material-icons right">list</i>
+                                </md-button>
+
+                                <div class="tituloCentralizado">
+                                    <span class="card-title">Cadastro de {{vm.tituloPagina}}</span>
+                                </div>
+
+                                <div class="progress" ng-if="!vm.listaProgramasCarregada">
+                                    <div class="indeterminate"></div>
+                                </div>
+
+                                <form class="separador">
+                                    <div class="row">
+
+                                        <is-select label="Programa"
+                                                   icone="extension"
+                                                   ng-model="vm.selecao.programa"
+                                                   function="vm.listarProgramas"
+                                                   ng-required="true"
+                                                   mensagem="Selecione o programa"
+                                                   control="vm.selectControl"
+                                                   show="nome">
+                                        </is-select>
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <md-step-actions>
+                    <button class="btn waves-effect waves-light right"
+                            ng-click="vm.next()">Próximo
+                    </button>
+                </md-step-actions>
+            </md-step-body>
+        </md-step>
+        <md-step md-label="Avaliadores">
+            <md-step-body>
+                <form>
+                    <is-select label="Avaliadores"
+                               icone="extension"
+                               ng-model="vm.selecao.programa"
+                               function="vm.listarProgramas"
+                               ng-required="true"
+                               mensagem="Selecione o programa"
+                               control="vm.selectControl"
+                               show="nome">
+                    </is-select>
+                </form>
+            </md-step-body>
+            <md-step-actions>
+                <md-button class="md-primary md-raised" ng-click="vm.next();">Continue</md-button>
+                <md-button class="md-primary" ng-click="vm.back()">Voltar</md-button>
+            </md-step-actions>
+        </md-step>
+        <md-step md-label="Candidatos">
+            <md-step-body>
+                <p>Step content</p>
+            </md-step-body>
+            <md-step-actions>
+                <md-button class="md-primary md-raised" ng-click="vm.next();">Continue</md-button>
+                <md-button class="md-primary" ng-click="vm.back()">Voltar</md-button>
+            </md-step-actions>
+        </md-step>
+        <md-step md-label="Criterios">
+            <md-step-body>
+                <p>Step content</p>
+            </md-step-body>
+            <md-step-actions>
+                <md-button class="md-primary md-raised" ng-click="vm.next();">Continue</md-button>
+                <md-button class="md-primary" ng-click="vm.back()">Voltar</md-button>
+            </md-step-actions>
+        </md-step>
+
+    </md-stepper>
+</div>

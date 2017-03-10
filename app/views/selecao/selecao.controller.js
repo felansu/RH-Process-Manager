@@ -4,27 +4,29 @@
 
 	angular
 		.module('is')
-		.controller('CriterioController', CriterioController);
+		.controller('SelecaoController', SelecaoController);
 
 	/* @ngInject */
-	function CriterioController(CriterioService, $scope, IsAlertService) {
+	function SelecaoController(SelecaoService, IsAlertService, ProgramaService, $mdStepper, $scope) {
 
 		var vm = this;
 
-		vm.tituloPagina = 'Critério';
+		vm.tituloPagina = 'Seleção';
 
-		vm.criterio = {};
-		vm.criterios = [];
-		vm.select = {};
+		vm.selecao = {};
+		vm.selecoes = [];
+		vm.listaProgramas = {};
+
 		vm.cardReveal = {};
-		vm.tiposCriterios = [];
 
 		vm.salvar = salvar;
 		vm.editar = editar;
 		vm.eliminar = eliminar;
 		vm.limpar = limpar;
 		vm.switchCard = switchCard;
-		vm.listarTiposCriterios = listarTiposCriterios;
+		vm.listarProgramas = listarProgramas;
+		vm.next = next;
+		vm.back = back;
 
 		vm.selectControl = {};
 
@@ -34,15 +36,8 @@
 			listar();
 		}
 
-		function listarTiposCriterios() {
-			return CriterioService.listarTiposCriterios()
-				.then(function (result) {
-					return result;
-				});
-		}
-
 		function salvar() {
-			CriterioService.salvar(vm.criterio)
+			SelecaoService.salvar(vm.selecao)
 				.then(function (result) {
 					if (result) {
 						vm.limpar();
@@ -53,19 +48,17 @@
 		}
 
 		function editar(key) {
-			vm.criterio = vm.criterios[key];
-			vm.criterio.key = key;
-			var indexTipo = vm.tiposCriterios.indexOf(vm.criterio.tipo);
-			vm.selectControl.setSelectedItem(indexTipo);
+			vm.selecao = vm.selecoes[key];
+			vm.selecao.key = key;
 			vm.switchCard();
 		}
 
 		function eliminar(key) {
-			CriterioService.eliminar(key)
+			SelecaoService.eliminar(key)
 				.then(function (result) {
 					if (result) {
 						listar(function () {
-							if (!vm.criterios) {
+							if (!vm.selecoes) {
 								vm.switchCard();
 							}
 						});
@@ -76,14 +69,23 @@
 
 		function listar(funcao) {
 			vm.listaCarregada = false;
-			CriterioService.listar()
+			SelecaoService.listar()
 				.then(function (result) {
-					vm.criterios = result;
+					vm.selecoes = result;
+					vm.listaCarregada = true;
 					if (funcao) {
 						funcao();
 					}
-					vm.listaCarregada = true;
+				});
+		}
+
+		function listarProgramas() {
+			vm.listaProgramasCarregada = false;
+			return ProgramaService.listar()
+				.then(function (result) {
+					vm.listaProgramasCarregada = true;
 					$scope.$applyAsync();
+					return result;
 				});
 		}
 
@@ -93,7 +95,23 @@
 		}
 
 		function limpar() {
-			vm.criterio = {};
+			vm.selecao = {};
+		}
+
+		function next() {
+			var steppers = $mdStepper('selecao');
+
+			if (!vm.selecao.programa) {
+				steppers.error('Eita, falta definir o programa cara !');
+			} else {
+				steppers.next();
+			}
+		}
+
+		function back() {
+			var steppers = $mdStepper('selecao');
+			steppers.back();
+
 		}
 	}
 })();

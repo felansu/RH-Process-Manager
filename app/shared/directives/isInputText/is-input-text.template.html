@@ -1,9 +1,9 @@
-<div class="input-field col s{{largura}}">
-    <i class="material-icons prefix">{{icone}}</i>
+<div class="input-field col s{{::largura}}">
+    <i class="material-icons prefix">{{::icone}}</i>
     <input id="{{::inputName}}"
            name="{{::inputName}}"
            type="text"
            ng-model="ngModel"
            ng-required="ngRequired">
-    <label for="{{::inputName}}" ng-bind="label">Descrição</label>
+    <label for="{{::inputName}}" ng-bind="::label">Descrição</label>
 </div>

@@ -28,8 +28,7 @@ var path = {
 		'bower_components/firebase/firebase.js',
 		'bower_components/angularfire/dist/angularfire.min.js',
 		'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
-		'bower_components/angular-toastr/dist/angular-toastr.js',
-		'bower_components/angular-toastr/dist/angular-toastr.tpls.js'
+		'bower_components/material-steppers/dist/material-steppers.min.js'
 	],
 	JS: [
 		'app/assets/**/*.js',
@@ -38,7 +37,7 @@ var path = {
 		'app/config/rotas.js',
 		'app/config/auth.service.js',
 
-		'app/shared/directives/isInputText/is-input-text.directive.js',
+		'app/shared/directives/**/*.js',
 
 		'app/shared/services/is-storage.service.js',
 		'app/shared/services/is-alert.service.js',
@@ -53,7 +52,9 @@ var path = {
 		'app/views/candidato/candidato.controller.js',
 		'app/views/candidato/candidato.service.js',
 		'app/views/programa/programa.controller.js',
-		'app/views/programa/programa.service.js'
+		'app/views/programa/programa.service.js',
+		'app/views/selecao/selecao.controller.js',
+		'app/views/selecao/selecao.service.js'
 	],
 	JSON: [
 		'app/views/**/*.json'
@@ -72,7 +73,7 @@ var path = {
 		'bower_components/materialize/dist/css/materialize.min.css',
 		'bower_components/material-design-icons/iconfont/**/*.{ttf,woff,woff2,eof,svg}',
 		'bower_components/angular-ui-grid/**/*.{ttf,woff,woff2,eof,svg}',
-		'bower_components/angular-toastr/dist/angular-toastr.css'
+		'bower_components/material-steppers/dist/material-steppers.min.css'
 	],
 	FONTES: [
 		'bower_components/materialize/fonts/**/*.{ttf,woff,woff2,eof,svg}'

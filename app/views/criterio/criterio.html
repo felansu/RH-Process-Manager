@@ -12,7 +12,6 @@
                     <i class="material-icons right">list</i>
                 </md-button>
 
-
                 <div class="tituloCentralizado">
                     <span class="card-title">Cadastro de {{vm.tituloPagina}}</span>
                 </div>
@@ -23,32 +22,32 @@
 
                 <form class="separador">
                     <div class="row">
-
                         <is-input-text label="Descrição"
                                        largura="12"
                                        icone="description"
                                        ng-model="vm.criterio.descricao"
                                        ng-required="true">
-
                         </is-input-text>
 
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">extension</i>
-                            <select ng-model="vm.criterio.tipo"
-                                    ng-options="tipo.id as tipo.descricao for tipo in vm.tiposCriterios">
-                                <option value="" disabled selected>Tipo de resposta</option>
-                            </select>
-                            <label for="descricao">Tipo</label>
-                        </div>
+                        <is-select label="Tipo"
+                                   largura="12"
+                                   icone="extension"
+                                   ng-model="vm.criterio.tipo"
+                                   function="vm.listarTiposCriterios"
+                                   ng-required="true"
+                                   mensagem="Tipo de resposta"
+                                   control="vm.selectControl">
+                        </is-select>
                     </div>
                     <div class="card-action">
-                        <button class="waves-effect waves-light btn"
+                        <button class="waves-effect waves-light btn "
                                 ng-click="vm.salvar()"
                                 ng-disabled="!vm.criterio.descricao || !vm.criterio.tipo ">Salvar
                         </button>
                         <button class="waves-effect waves-light btn"
                                 ng-click="vm.limpar()"
-                                ng-disabled="!vm.criterio.descricao || !vm.criterio.tipo ">Limpar
+                                ng-disabled="!vm.criterio.descricao && !vm.criterio.tipo">
+                            Limpar
                         </button>
                     </div>
                 </form>

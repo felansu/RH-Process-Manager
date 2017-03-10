@@ -186,11 +186,6 @@ a {
 	padding-left: 20%;
 }
 
-select {
-	height: 10px;
-	font-size: 6px;
-}
-
 .dropdown-content li {
 	clear: both;
 	color: rgba(0, 0, 0, 0.87);
@@ -259,25 +254,52 @@ select {
 	border-color: #BDBDBD;
 }
 
-.ngtoast-default {
-	background-color: #fff;
-	border-radius: 4px;
-	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
-	cursor: pointer;
-	display: block;
-	left: 0;
-	margin: auto;
-	position: absolute;
-	right: 0;
-	text-align: center;
-	top: 200px;
-	-webkit-transform: translateY(20px);
-	-ms-transform: translateY(20px);
-	transform: translateY(20px);
-	width: 200px;
-	height: 50px;
+.md-button {
+	line-height: 25px;
 }
 
 .md-button.md-icon-button.semEspaco {
 	margin: 0;
+}
+
+#toast-container {
+	top: 1%;
+	right: 1%;
+}
+
+.toast {
+	background-color: #2d5271;
+	border: solid 1px #ffffff;
+	border-radius: 5px !important;
+}
+
+.row table .col {
+	float: initial;
+	box-sizing: border-box;
+	padding: 0;
+	min-height: 1px;
+}
+
+.steps-indicator {
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 40%;
+	position: absolute;
+}
+
+.md-select-value {
+	padding: 10px;
+}
+
+md-input-container {
+	width: 100%;
+}
+
+md-step-body {
+	display: initial;
+}
+
+.md-stepper-indicator-wrapper {
+	background-color: transparent;
 }

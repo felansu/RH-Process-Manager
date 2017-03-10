@@ -3,31 +3,30 @@
 
 	angular
 		.module('is')
-		.service('CriterioService', CriterioService);
+		.service('SelecaoService', SelecaoService);
 
 	/* @ngInject */
-	function CriterioService($http) {
+	function SelecaoService() {
 		var self = this;
 
 		self.salvar = salvar;
 		self.listar = listar;
 		self.eliminar = eliminar;
-		self.listarTiposCriterios = listarTiposCriterios;
 
-		function salvar(criterio) {
-			if (criterio.key) {
+		function salvar(selecao) {
+			if (selecao.key) {
 				return firebase.database()
 					.ref()
-					.child("criterios/" + criterio.key)
-					.set(criterio)
+					.child("selecoes/" + selecao.key)
+					.set(selecao)
 					.then(function () {
 						return true;
 					});
 			} else {
 				return firebase.database()
 					.ref()
-					.child("criterios")
-					.push(criterio)
+					.child("selecoes")
+					.push(selecao)
 					.then(function (result) {
 						return !!result.key;
 					});
@@ -36,7 +35,7 @@
 
 		function eliminar(key) {
 			return firebase.database()
-				.ref("criterios")
+				.ref("selecoes")
 				.child(key)
 				.remove()
 				.then(function () {
@@ -47,20 +46,11 @@
 		function listar() {
 			return firebase.database()
 				.ref()
-				.child('criterios')
+				.child('selecoes')
 				.once('value')
 				.then(function (response) {
 					return response.val();
 				});
-		}
-
-		function listarTiposCriterios() {
-			return $http.get('views/criterio/tiposCriterios.json')
-				.then(result);
-
-			function result(response) {
-				return response.data;
-			}
 		}
 	}
 

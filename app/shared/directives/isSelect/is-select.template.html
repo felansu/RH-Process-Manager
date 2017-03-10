@@ -1,0 +1,22 @@
+<div class="input-field col s{{largura}}">
+    <md-input-container>
+        <label>{{label}}</label>
+        <md-icon ng-if="icone" class="material-icons md-light md-{{tamanhoIcone}}"> {{icone}}</md-icon>
+        <md-select
+                id="{{selectName}}"
+                name="{{selectName}}"
+                ng-required="ngRequired"
+                ng-model="ngModel">
+            <option value=""
+                    disabled selected>{{::mensagem}}
+            </option>
+            <md-option
+                    ng-repeat="option in getLista()"
+                    ng-value="option">
+                {{option[show] ? option[show] : option}}
+            </md-option>
+        </md-select>
+        <!--<md-icon ng-bind="icone"></md-icon>-->
+
+    </md-input-container>
+</div>

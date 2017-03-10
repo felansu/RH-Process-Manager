@@ -4,7 +4,7 @@
 	angular.module('is')
 		.service('IsAlertService', IsAlertService);
 
-	function IsAlertService(toastr) {
+	function IsAlertService() {
 
 		var self = this;
 
@@ -12,16 +12,16 @@
 		self.showError = showError;
 		self.showInfo = showInfo;
 
-		function showSuccess(mensagem, titulo) {
-			toastr.success(mensagem, titulo || 'Sucesso');
+		function showSuccess(mensagem) {
+			Materialize.toast(mensagem || 'Sucesso', 1000, 'rounded');
 		}
 
-		function showError(mensagem, titulo) {
-			toastr.error(mensagem, titulo || 'Erro');
+		function showError(mensagem) {
+			Materialize.toast(mensagem || 'Erro', 1000, 'rounded');
 		}
 
-		function showInfo(mensagem, titulo) {
-			toastr.info(mensagem, titulo || 'Informação');
+		function showInfo(mensagem) {
+			Materialize.toast(mensagem || 'Informação', 1000, 'rounded');
 		}
 	}
 
