@@ -55,8 +55,6 @@
 		function editar(key) {
 			vm.criterio = vm.criterios[key];
 			vm.criterio.key = key;
-			var indexTipo = vm.tiposCriterios.indexOf(vm.criterio.tipo);
-			vm.selectControl.setSelectedItem(indexTipo);
 			vm.switchCard();
 		}
 
@@ -64,24 +62,20 @@
 			CriterioService.eliminar(key)
 				.then(function (result) {
 					if (result) {
-						listar(function () {
-							if (!vm.criterios) {
-								vm.switchCard();
-							}
-						});
+						listar();
+						if (Object.keys(vm.criterios).length <= 1) {
+							vm.switchCard();
+						}
 						IsAlertService.showSuccess('Registro eliminado !');
 					}
 				});
 		}
 
-		function listar(funcao) {
+		function listar() {
 			vm.listaCarregada = false;
 			CriterioService.listar()
 				.then(function (result) {
 					vm.criterios = result;
-					if (funcao) {
-						funcao();
-					}
 					vm.listaCarregada = true;
 					$scope.$applyAsync();
 				});
