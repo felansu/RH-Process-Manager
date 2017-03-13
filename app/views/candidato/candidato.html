@@ -1,72 +1,94 @@
-<div class="row" ng-controller="CandidatoController as vm">
+<div class="row">
     <div class="col s8 offset-s2">
         <div class="card white hoverable">
             <div class="card-content">
-                <span class="card-title">Cadastro de {{vm.titulo}}</span>
-                <form>
+                <md-button ng-if="vm.listaCarregada && !!vm.candidatos" class="md-icon-button collapse right activator"
+                           aria-label="Lista de candidatos"
+                           ng-click="vm.switchCard()">
+                    <md-tooltip>Lista de candidatos</md-tooltip>
+                    <i class="material-icons right">list</i>
+                </md-button>
+
+                <div class="tituloCentralizado">
+                    <span class="card-title">Cadastro de {{vm.titulo}}</span>
+                </div>
+
+                <div class="progress" ng-if="!vm.listaCarregada">
+                    <div class="indeterminate"></div>
+                </div>
+
+                <form class="separador" novalidate>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">account_circle</i>
-                            <input id="nome" type="text" class="validate"
-                                   ng-model="vm.candidato.nome">
-                            <label for="nome">Nome completo</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">phone</i>
-                            <input id="telefone" type="text" class="validate"
-                                   ng-model="vm.candidato.telefone">
-                            <label for="telefone">Telefone</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">email</i>
-                            <input id="email" type="email" class="validate"
-                                   ng-model="vm.candidato.email">
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="datepicker" id="dataAgenda"
-                                   ng-model="vm.candidato.dataNascimento">
-                            <label for="dataAgenda">Data de nascimento</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">class</i>
-                            <select ng-model="vm.candidato.sexo">
-                                <option value="" disabled selected>Sexo</option>
-                                <option value="F">Feminino</option>
-                                <option value="M">Masculino</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s4">
-                            <i class="material-icons prefix">class</i>
-                            <select ng-model="vm.candidato.formacao">
-                                <option value="" disabled selected>Formação</option>
-                                <option value="Segundo Grau">Segundo Grau</option>
-                                <option value="Graduação">Graduação</option>
-                                <option value="Pós graduação">Pós graduação</option>
-                                <option value="Mestrado">Mestrado</option>
-                            </select>
-                        </div>
-                        <div class="input-field col s8">
-                            <i class="material-icons prefix">school</i>
-                            <input id="curso" type="text" class="validate"
-                                   ng-model="vm.candidato.curso">
-                            <label for="curso">Curso</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="datepicker" id="formacaoDataInicio"
-                                   ng-model="vm.candidato.dataInicio">
-                            <label for="formacaoDataInicio">Data inicio</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="datepicker" id="formacaoDataFim"
-                                   ng-model="vm.candidato.dataFim">
-                            <label for="formacaoDataFim">Data fim</label>
-                        </div>
+
+                        <is-input-text label="Nome completo"
+                                       largura="12"
+                                       icone="account_circle"
+                                       ng-model="vm.candidato.nome"
+                                       ng-required="true">
+                        </is-input-text>
+
+                        <is-input-text label="Telefone"
+                                       largura="6"
+                                       icone="phone"
+                                       ng-model="vm.candidato.telefone"
+                                       ng-required="true">
+                        </is-input-text>
+
+                        <is-input-text label="E-mail"
+                                       largura="6"
+                                       icone="email"
+                                       ng-model="vm.candidato.email"
+                                       ng-required="true">
+                        </is-input-text>
+
+                        <is-date label="Data de nascimento"
+                                 largura="6"
+                                 icone="date_range"
+                                 ng-model="vm.candidato.dataNascimento"
+                                 ng-required="true">
+                        </is-date>
+
+                        <is-select label="Sexo"
+                                   largura="6"
+                                   icone="class"
+                                   ng-model="vm.candidato.sexo"
+                                   lista="vm.listarSexos"
+                                   ng-required="true"
+                                   mensagem="Sexo"
+                                   control="vm.selectControlSexo">
+                        </is-select>
+
+                        <is-select label="Formação"
+                                   largura="4"
+                                   icone="class"
+                                   ng-model="vm.candidato.formacao"
+                                   lista="vm.listarFormacoes"
+                                   ng-required="true"
+                                   mensagem="Formação"
+                                   control="vm.selectControlFormacao">
+                        </is-select>
+
+                        <!--<is-input-text label="Curso"-->
+                        <!--largura="8"-->
+                        <!--icone="school"-->
+                        <!--ng-model="vm.candidato.curso"-->
+                        <!--ng-required="true">-->
+                        <!--</is-input-text>-->
+
+                        <!--<is-date label="Data inicio"-->
+                        <!--largura="6"-->
+                        <!--icone="date_range"-->
+                        <!--ng-model="vm.candidato.dataInicio"-->
+                        <!--ng-required="true">-->
+                        <!--</is-date>-->
+
+                        <!--<is-date label="Data fim"-->
+                        <!--largura="6"-->
+                        <!--icone="date_range"-->
+                        <!--ng-model="vm.candidato.dataFim"-->
+                        <!--ng-required="true">-->
+                        <!--</is-date>-->
+
                     </div>
                     <div class="card-action">
                         <button class="waves-effect waves-light btn"

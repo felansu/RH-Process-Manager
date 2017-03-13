@@ -33,6 +33,15 @@
 					return response.val();
 				});
 		}
+
+		function listarSexos() {
+			return $http.get('views/criterio/tiposCriterios.json')
+				.then(result);
+
+			function result(response) {
+				return response.data;
+			}
+		}
 	}
 
 })();

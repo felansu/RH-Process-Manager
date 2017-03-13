@@ -11,7 +11,8 @@
 			'ngMaterialSidemenu',
 			'firebase',
 			'LocalStorageModule',
-			'mdSteppers'
+			'mdSteppers',
+			'ui.materialize'
 		])
 		.config(function ($httpProvider) {
 			$httpProvider.interceptors.push(interceptor);
@@ -40,4 +41,6 @@
 			}
 		}
 	}
+
+
 })();

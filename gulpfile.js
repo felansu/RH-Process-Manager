@@ -28,7 +28,10 @@ var path = {
 		'bower_components/firebase/firebase.js',
 		'bower_components/angularfire/dist/angularfire.min.js',
 		'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
-		'bower_components/material-steppers/dist/material-steppers.min.js'
+		'bower_components/material-steppers/dist/material-steppers.min.js',
+		'bower_components/angular-materialize/src/angular-materialize.js',
+		'bower_components/angular-materialize/js/materialize.clockpicker.js'
+
 	],
 	JS: [
 		'app/assets/**/*.js',
@@ -73,7 +76,10 @@ var path = {
 		'bower_components/materialize/dist/css/materialize.min.css',
 		'bower_components/material-design-icons/iconfont/**/*.{ttf,woff,woff2,eof,svg}',
 		'bower_components/angular-ui-grid/**/*.{ttf,woff,woff2,eof,svg}',
-		'bower_components/material-steppers/dist/material-steppers.min.css'
+		'bower_components/material-steppers/dist/material-steppers.min.css',
+		'bower_components/angular-materialize/css/materialize.clockpicker.css',
+		'bower_components/angular-materialize/css/style.css'
+
 	],
 	FONTES: [
 		'bower_components/materialize/fonts/**/*.{ttf,woff,woff2,eof,svg}'

@@ -16,6 +16,7 @@
 				label: '@',
 				largura: '@',
 				icone: '@',
+				tamanho: '@',
 				ngModel: '=',
 				ngRequired: '='
 			}
@@ -29,4 +30,3 @@
 	}
 
 })();
-

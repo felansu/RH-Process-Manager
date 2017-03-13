@@ -7,37 +7,36 @@
 		.controller('ProgramaController', ProgramaController);
 
 	/* @ngInject */
-	function ProgramaController(ProgramaService) {
-
-		$(document).ready(function () {
-			$('select').material_select();
-			$('.datepicker').pickadate({
-					format: 'dd/mm/yyyy',
-					clear: 'Limpar',
-					close: 'Fechar',
-					labelMonthNext: 'Mês seguinte',
-					labelMonthPrev: 'Mês anterior',
-					labelMonthSelect: 'Selecione um mês',
-					labelYearSelect: 'Selecione um ano',
-					monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-					monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-					today: 'Hoje',
-					weekdaysFull: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
-					weekdaysLetter: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-					weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-					selectMonths: true,
-					selectYears: 15
-				}
-			);
-		});
+	function ProgramaController(ProgramaService, $scope) {
 
 		var vm = this;
 
 		vm.tituloPagina = 'Programa';
 		vm.programa = {};
+		vm.programas = [];
 
 		vm.salvar = salvar;
 		vm.limpar = limpar;
+		vm.listarUnidades = listarUnidades;
+		vm.eliminar = eliminar;
+		vm.editar = editar;
+		vm.switchCard = switchCard;
+
+		init();
+
+		function init() {
+			listar();
+		}
+
+		function listar() {
+			vm.listaCarregada = false;
+			ProgramaService.listar()
+				.then(function (result) {
+					vm.programas = result;
+					vm.listaCarregada = true;
+					$scope.$applyAsync();
+				});
+		}
 
 		function salvar() {
 			if (ProgramaService.salvar(vm.programa)) {
@@ -45,8 +44,39 @@
 			}
 		}
 
+		function editar(key) {
+			vm.programa = vm.programas[key];
+			vm.programa.key = key;
+			vm.switchCard();
+		}
+
+		function eliminar(key) {
+			ProgramaService.eliminar(key)
+				.then(function (result) {
+					if (result) {
+						listar();
+						if (Object.keys(vm.programas).length <= 1) {
+							vm.switchCard();
+						}
+						IsAlertService.showSuccess('Registro eliminado !');
+					}
+				});
+		}
+
+		function switchCard() {
+			vm.cardReveal = $('.card-reveal .card-title') ? $('.card-reveal .card-title') : $('.card .activator');
+			vm.cardReveal.click();
+		}
+
 		function limpar() {
 			vm.programa = {};
+		}
+
+		function listarUnidades() {
+			return ProgramaService.listarUnidades()
+				.then(function (result) {
+					return result;
+				});
 		}
 	}
 })();

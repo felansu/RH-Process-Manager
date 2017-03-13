@@ -19,6 +19,7 @@
 				tamanhoIcone: '@',
 				mensagem: '@',
 				show: '@',
+				lista: '=',
 				ngModel: '=',
 				function: '=',
 				ngRequired: '=',
@@ -31,18 +32,18 @@
 			$scope.formCtrl = formCtrl;
 			$scope.selectName = 'isSelect' + $scope.$id;
 			$scope.selectControl = $scope.control || {};
-			$scope.lista = [];
 			$scope.largura = $scope.largura ? $scope.largura : '12';
 			$scope.tamanhoIcone = $scope.tamanhoIcone ? $scope.tamanhoIcone : '48';
+			var lista = $scope.lista ? $scope.lista : [];
 
 			if (typeof $scope.function === "function") {
 				$scope.function().then(function (result) {
-					$scope.lista = result;
+					lista = result;
 				});
 			}
 
 			$scope.getLista = function () {
-				return $scope.lista;
+				return lista;
 			};
 		}
 	}

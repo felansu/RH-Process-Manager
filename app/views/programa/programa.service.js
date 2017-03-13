@@ -6,11 +6,12 @@
 		.service('ProgramaService', ProgramaService);
 
 	/* @ngInject */
-	function ProgramaService() {
+	function ProgramaService($http) {
 		var self = this;
 
 		self.salvar = salvar;
 		self.listar = listar;
+		self.listarUnidades = listarUnidades;
 
 		function salvar(programa) {
 			return firebase.database()
@@ -31,6 +32,15 @@
 				.then(function (response) {
 					return response.val();
 				});
+		}
+
+		function listarUnidades() {
+			return $http.get('views/programa/unidades.json')
+				.then(result);
+
+			function result(response) {
+				return response.data;
+			}
 		}
 	}
 

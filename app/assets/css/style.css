@@ -85,11 +85,6 @@ main {
 	background-color: #55818F !important;
 }
 
-.row {
-	margin-bottom: 2px;
-	margin-left: inherit;
-}
-
 .footer {
 	height: 50px;
 	position: absolute;
@@ -151,10 +146,6 @@ a {
 .card .card-reveal {
 	padding: 10px;
 	border-radius: 14px;
-}
-
-.input-field label {
-	color: #416c7a;
 }
 
 .pagination li.active a {
@@ -288,14 +279,6 @@ a {
 	position: absolute;
 }
 
-.md-select-value {
-	padding: 10px;
-}
-
-md-input-container {
-	width: 100%;
-}
-
 md-step-body {
 	display: initial;
 }
@@ -303,16 +286,6 @@ md-step-body {
 .md-stepper-indicator-wrapper {
 	background-color: transparent;
 }
-
-md-option {
-	height: 24px;
-}
-
-/*.ng-hide-add {*/
-/*}*/
-
-/*.ng-hide-remove {*/
-/*}*/
 
 .fadein,
 .fadeout {
@@ -332,4 +305,8 @@ md-option {
 .fadein.ng-hide-remove.ng-hide-remove-active {
 	opacity: 1;
 	display: block !important;
+}
+
+.input-field {
+	margin-top: 0;
 }
