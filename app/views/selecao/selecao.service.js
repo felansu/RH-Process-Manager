@@ -17,7 +17,7 @@
 			if (selecao.key) {
 				return firebase.database()
 					.ref()
-					.child("selecoes/" + selecao.key)
+					.child('selecoes/' + selecao.key)
 					.set(selecao)
 					.then(function () {
 						return true;
@@ -25,7 +25,7 @@
 			} else {
 				return firebase.database()
 					.ref()
-					.child("selecoes")
+					.child('selecoes')
 					.push(selecao)
 					.then(function (result) {
 						return !!result.key;
@@ -35,7 +35,7 @@
 
 		function eliminar(key) {
 			return firebase.database()
-				.ref("selecoes")
+				.ref('selecoes')
 				.child(key)
 				.remove()
 				.then(function () {

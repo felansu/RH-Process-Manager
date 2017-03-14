@@ -7,7 +7,14 @@
 		.controller('SelecaoController', SelecaoController);
 
 	/* @ngInject */
-	function SelecaoController(SelecaoService, IsAlertService, ProgramaService, AvaliadorService, CandidatoService, CriterioService, $mdStepper, $scope) {
+	function SelecaoController(SelecaoService,
+	                           IsAlertService,
+	                           ProgramaService,
+	                           AvaliadorService,
+	                           CandidatoService,
+	                           CriterioService,
+	                           $mdStepper,
+	                           $scope) {
 
 		var vm = this;
 

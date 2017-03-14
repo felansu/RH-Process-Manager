@@ -15,7 +15,7 @@
 		function salvar(avaliador) {
 			return firebase.database()
 				.ref()
-				.child("avaliadores")
+				.child('avaliadores')
 				.push(avaliador)
 				.then(function (result) {
 					console.log(result.key);

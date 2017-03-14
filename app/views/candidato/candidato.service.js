@@ -6,7 +6,7 @@
 		.service('CandidatoService', CandidatoService);
 
 	/* @ngInject */
-	function CandidatoService() {
+	function CandidatoService($http) {
 		var self = this;
 
 		self.salvar = salvar;
@@ -15,7 +15,7 @@
 		function salvar(candidato) {
 			return firebase.database()
 				.ref()
-				.child("candidatos")
+				.child('candidatos')
 				.push(candidato)
 				.then(function (result) {
 					console.log(result.key);
@@ -34,14 +34,6 @@
 				});
 		}
 
-		function listarSexos() {
-			return $http.get('views/criterio/tiposCriterios.json')
-				.then(result);
-
-			function result(response) {
-				return response.data;
-			}
-		}
 	}
 
 })();

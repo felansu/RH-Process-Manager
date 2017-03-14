@@ -80,7 +80,7 @@
 			.state('criterio', criterio)
 			.state('candidato', candidato)
 			.state('programa', programa)
-			.state('selecao', selecao)
+			.state('selecao', selecao);
 	}
 
 })();

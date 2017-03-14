@@ -7,7 +7,7 @@
 		.controller('ProgramaController', ProgramaController);
 
 	/* @ngInject */
-	function ProgramaController(ProgramaService, $scope) {
+	function ProgramaController(ProgramaService, $scope, IsAlertService) {
 
 		var vm = this;
 
@@ -17,6 +17,7 @@
 
 		vm.salvar = salvar;
 		vm.limpar = limpar;
+		vm.listar = listar;
 		vm.listarUnidades = listarUnidades;
 		vm.eliminar = eliminar;
 		vm.editar = editar;
@@ -28,6 +29,17 @@
 			listar();
 		}
 
+		function salvar() {
+			ProgramaService.salvar(vm.programa)
+				.then(function (result) {
+					if (result) {
+						vm.limpar();
+						vm.listar();
+						IsAlertService.showSuccess('Registro salvo !');
+					}
+				});
+		}
+
 		function listar() {
 			vm.listaCarregada = false;
 			ProgramaService.listar()
@@ -36,12 +48,6 @@
 					vm.listaCarregada = true;
 					$scope.$applyAsync();
 				});
-		}
-
-		function salvar() {
-			if (ProgramaService.salvar(vm.programa)) {
-				vm.limpar();
-			}
 		}
 
 		function editar(key) {

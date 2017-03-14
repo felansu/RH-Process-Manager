@@ -4,7 +4,7 @@
 
 	angular
 		.module('is')
-		.service("AuthService", AuthService);
+		.service('AuthService', AuthService);
 
 	/* @ngInject */
 	function AuthService(IsStorageService) {
@@ -26,11 +26,11 @@
 
 		function conectaFirebase() {
 			var config = {
-				apiKey: "AIzaSyCJLevWzCw8cChGdAe9_cuycGZ6qkpdWvU",
-				authDomain: "indra-select.firebaseapp.com",
-				databaseURL: "https://indra-select.firebaseio.com",
-				storageBucket: "indra-select.appspot.com",
-				messagingSenderId: "860954589175"
+				apiKey: 'AIzaSyCJLevWzCw8cChGdAe9_cuycGZ6qkpdWvU',
+				authDomain: 'indra-select.firebaseapp.com',
+				databaseURL: 'https://indra-select.firebaseio.com',
+				storageBucket: 'indra-select.appspot.com',
+				messagingSenderId: '860954589175'
 			};
 			firebase.initializeApp(config);
 		}
@@ -60,7 +60,7 @@
 			firebaseIsInitialized();
 			return firebase.auth().signOut()
 				.then(function () {
-					console.log("Sessão finalizada com sucesso");
+					console.log('Sessão finalizada com sucesso');
 					IsStorageService.remover('usuarioLogado');
 					return true;
 				}, function (error) {

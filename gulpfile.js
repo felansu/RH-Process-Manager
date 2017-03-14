@@ -1,50 +1,42 @@
-//npm install --save-dev gulp browserify vinyl-source-stream vinyl-buffer jshint gulp-jshint browser-sync gulp-uglify gulp-concat gulp-util gulp-ng-annotate
-var gulp = require('gulp');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var jshint = require('gulp-jshint');
-var browserSync = require('browser-sync').create();
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var util = require('gulp-util');
-var ngAnnotate = require('gulp-ng-annotate');
+//npm install --save-dev gulp browserify source jshint browserSync uglify concat util ngAnnotate del
+let gulp = require('gulp');
+let browserify = require('browserify');
+let source = require('vinyl-source-stream');
+let jshint = require('gulp-jshint');
+let browserSync = require('browser-sync').create();
+let uglify = require('gulp-uglify');
+let concat = require('gulp-concat');
+let util = require('gulp-util');
+let ngAnnotate = require('gulp-ng-annotate');
+let del = require('del');
 
-var ambiente = util.env.prod ? 'prod' : 'dev';
-var configFile = './app/env/' + ambiente + '.js';
+let ambiente = util.env.prod ? 'prod' : 'dev';
+let configFile = './app/env/' + ambiente + '.js';
 
-var path = {
-	DEPENDENCIES: [
+let path = {
+	VENDOR: [
 		'bower_components/jquery/dist/jquery.min.js',
 		'bower_components/angular/angular.min.js',
 		'bower_components/angular-animate/angular-animate.min.js',
 		'bower_components/angular-ui-router/release/angular-ui-router.min.js',
 		'bower_components/angular-aria/angular-aria.min.js',
 		'bower_components/angular-material/angular-material.min.js',
-		'bower_components/angular-ui-grid/ui-grid.min.js',
-		'bower_components/angular-materialize/js/app.js',
 		'bower_components/materialize/dist/js/materialize.min.js',
 		'bower_components/angular-material-sidemenu/dest/angular-material-sidemenu.js',
 		'bower_components/firebase/firebase.js',
 		'bower_components/angularfire/dist/angularfire.min.js',
 		'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
 		'bower_components/material-steppers/dist/material-steppers.min.js',
-		'bower_components/angular-materialize/src/angular-materialize.js',
-		'bower_components/angular-materialize/js/materialize.clockpicker.js'
-
+		'bower_components/angular-materialize/src/angular-materialize.js'
 	],
-	JS: [
+	APP: [
 		'app/assets/**/*.js',
-
-		'app/config/module.js',
+		'app/config/interceptor.js',
 		'app/config/rotas.js',
 		'app/config/auth.service.js',
-
 		'app/shared/directives/**/*.js',
-
 		'app/shared/services/is-storage.service.js',
 		'app/shared/services/is-alert.service.js',
-
 		'app/views/login/login.controller.js',
 		'app/views/dashboard/dashboard.controller.js',
 		'app/views/dashboard/dashboard.service.js',
@@ -59,62 +51,78 @@ var path = {
 		'app/views/selecao/selecao.controller.js',
 		'app/views/selecao/selecao.service.js'
 	],
-	JSON: [
-		'app/views/**/*.json'
+	HTML: [
+		'app/**/**/*.json',
+		'app/**/**/*.css',
+		'app/**/**/*.html',
+		'app/*.html'
 	],
 	CSS: [
-		'app/**/*.html',
-		'app/**/*.css',
-		'app/views/**/*.css',
-		'app/**/*.json',
-		'assets/css/style.css',
-		'app/views/login/style.css',
 		'bower_components/angular-material/angular-material.min.css',
 		'bower_components/angular-material-sidemenu/dest/angular-material-sidemenu.css',
-		'bower_components/angular-ui-grid/ui-grid.min.css',
 		'bower_components/material-design-icons/iconfont/material-icons.css',
 		'bower_components/materialize/dist/css/materialize.min.css',
-		'bower_components/material-design-icons/iconfont/**/*.{ttf,woff,woff2,eof,svg}',
-		'bower_components/angular-ui-grid/**/*.{ttf,woff,woff2,eof,svg}',
 		'bower_components/material-steppers/dist/material-steppers.min.css',
-		'bower_components/angular-materialize/css/materialize.clockpicker.css',
-		'bower_components/angular-materialize/css/style.css'
+		'app/assets/css/style.css'
 
 	],
-	FONTES: [
-		'bower_components/materialize/fonts/**/*.{ttf,woff,woff2,eof,svg}'
+	ROBOTO: [
+		'bower_components/materialize/fonts/**/*.{ttf,woff,woff2}'
 	],
-	WATCH: [
-		'app/views/**/*.*',
-		'app/assets/**/*.*',
-		'app/config/*.*',
-		'app/shared/**/*.*',
-		'app/*.*'
+	ICONS: [
+		'bower_components/material-design-icons/iconfont/**/*.{ttf,woff,woff2}'
 	],
 	IMAGES: [
 		'app/assets/img/*.*'
 	]
 };
-gulp.task('lint', function () {
+
+gulp.task('revision-code', function () {
 	return gulp.src('./app/**/*.js')
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'));
 });
 
-gulp.task('dependencies', function () {
-	return gulp.src(path.DEPENDENCIES, [configFile])
+gulp.task('vendor-deploy', function () {
+	return gulp.src(path.VENDOR, [configFile])
 		.pipe(ngAnnotate())
-		.pipe(util.env.prod ? uglify() : util.noop())
-		.pipe(concat('dependencies.min.js'))
+		.pipe(util.env.prod ? uglify().on('error', util.log) : util.noop())
+		.pipe(concat('vendor.min.js'))
 		.pipe(gulp.dest('./public/'));
 });
 
-gulp.task('scripts', function () {
-	return gulp.src(path.JS, [configFile])
+gulp.task('app-deploy', function () {
+	return gulp.src(path.APP, [configFile])
 		.pipe(ngAnnotate())
-		.pipe(util.env.prod ? uglify() : util.noop())
-		.pipe(concat('vendor.min.js'))
+		.pipe(util.env.prod ? uglify().on('error', util.log) : util.noop())
+		.pipe(concat('app.min.js'))
 		.pipe(gulp.dest('./public/'));
+});
+
+gulp.task('styles-deploy', function () {
+	gulp.src(path.CSS)
+		.pipe(concat('styles.css'))
+		.pipe(gulp.dest('./public'))
+});
+
+gulp.task('icons-deploy', function () {
+	gulp.src(path.ICONS)
+		.pipe(gulp.dest('./public'))
+});
+
+gulp.task('roboto-deploy', function () {
+	gulp.src(path.ROBOTO)
+		.pipe(gulp.dest('./public/fonts'))
+});
+
+gulp.task('images-deploy', function () {
+	gulp.src(path.IMAGES)
+		.pipe(gulp.dest('./public/assets/img/'))
+});
+
+gulp.task('html-deploy', function () {
+	gulp.src(path.HTML)
+		.pipe(gulp.dest('./public/'))
 });
 
 gulp.task('browserify', function () {
@@ -124,25 +132,18 @@ gulp.task('browserify', function () {
 		.pipe(gulp.dest('./public/'));
 });
 
-gulp.task('copy', ['browserify'], function () {
-	gulp.src(path.CSS)
-		.pipe(gulp.dest('./public'))
-		.pipe(browserSync.stream())
-});
-
-gulp.task('images', ['browserify'], function () {
-	gulp.src(path.IMAGES)
-		.pipe(gulp.dest('./public/assets/img/'))
-		.pipe(browserSync.stream())
-});
-
-gulp.task('fontes', ['browserify'], function () {
-	gulp.src(path.FONTES)
-		.pipe(gulp.dest('./public/fonts'))
-		.pipe(browserSync.stream())
-});
-
-gulp.task('build', ['lint', 'copy', 'images', 'fontes', 'dependencies', 'scripts']);
+gulp.task('build', [
+	'clean',
+	'revision-code',
+	'vendor-deploy',
+	'app-deploy',
+	'styles-deploy',
+	'icons-deploy',
+	'roboto-deploy',
+	'images-deploy',
+	'html-deploy',
+	'browserify'
+]);
 
 gulp.task('browser-sync', ['build'], function () {
 	browserSync.init({
@@ -158,8 +159,13 @@ gulp.task('browser-sync', ['build'], function () {
 	console.log('Rodando em ambiente ' + ambiente);
 });
 
-gulp.task('default', ['browser-sync'], function () {
+gulp.task('clean', function () {
+	del.sync('public');
+});
 
-	gulp.watch(path.WATCH, ["build"]);
-	gulp.watch("./public/**/*.*").on('change', browserSync.reload);
+gulp.task('default', ['browser-sync'], function () {
+	gulp.watch(path.HTML, ["html-deploy"]).on('change', browserSync.reload);
+	gulp.watch(path.IMAGES, ["images-deploy"]).on('change', browserSync.reload);
+	gulp.watch(path.APP, ["app-deploy"]).on('change', browserSync.reload);
+	gulp.watch(path.CSS, ["styles-deploy"]).on('change', browserSync.reload);
 });

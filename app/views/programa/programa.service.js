@@ -10,18 +10,28 @@
 		var self = this;
 
 		self.salvar = salvar;
+		self.eliminar = eliminar;
 		self.listar = listar;
 		self.listarUnidades = listarUnidades;
 
 		function salvar(programa) {
-			return firebase.database()
-				.ref()
-				.child("programas")
-				.push(programa)
-				.then(function (result) {
-					console.log(result.key);
-					return !!result.key;
-				});
+			if (programa.key) {
+				return firebase.database()
+					.ref()
+					.child('programas/' + programa.key)
+					.set(programa)
+					.then(function () {
+						return true;
+					});
+			} else {
+				return firebase.database()
+					.ref()
+					.child('programas')
+					.push(programa)
+					.then(function (result) {
+						return !!result.key;
+					});
+			}
 		}
 
 		function listar() {
@@ -31,6 +41,16 @@
 				.once('value')
 				.then(function (response) {
 					return response.val();
+				});
+		}
+
+		function eliminar(key) {
+			return firebase.database()
+				.ref('programas')
+				.child(key)
+				.remove()
+				.then(function () {
+					return true;
 				});
 		}
 
