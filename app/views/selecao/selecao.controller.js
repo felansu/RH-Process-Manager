@@ -7,20 +7,17 @@
 		.controller('SelecaoController', SelecaoController);
 
 	/* @ngInject */
-	function SelecaoController(SelecaoService,
-	                           IsAlertService,
-	                           ProgramaService,
-	                           AvaliadorService,
-	                           CandidatoService,
-	                           CriterioService,
-	                           $mdStepper,
-	                           $scope) {
+	function SelecaoController(SelecaoService, IsAlertService, ProgramaService, AvaliadorService,
+	                           CandidatoService, CriterioService, $mdStepper, $scope) {
 
 		var vm = this;
 
 		vm.tituloPagina = 'Seleção';
 
 		vm.selecao = {};
+		vm.selecao.avaliadores = [];
+		vm.selecao.candidatos = [];
+		vm.selecao.criterios = [];
 		vm.selecoes = [];
 		vm.listaProgramas = {};
 		vm.listaAvaliadores = {};
@@ -30,31 +27,28 @@
 		vm.cardReveal = {};
 
 		vm.salvar = salvar;
-		vm.editar = editar;
-		vm.eliminar = eliminar;
-		vm.limpar = limpar;
-		vm.switchCard = switchCard;
 		vm.listarProgramas = listarProgramas;
-		vm.listarAvaliadores = listarAvaliadores;
-		vm.listarCandidatos = listarCandidatos;
-		vm.listarCriterios = listarCriterios;
 		vm.next = next;
 		vm.back = back;
+		vm.finalizar = finalizar;
+		vm.addAvaliador = addAvaliador;
+		vm.addCandidato = addCandidato;
+		vm.addCriterio = addCriterio;
 
 		vm.selectControl = {};
 
-		init();
+		// init();
 
-		function init() {
-			listar();
-		}
+		// function init() {
+		// listar();
+		// }
 
 		function salvar() {
 			SelecaoService.salvar(vm.selecao)
 				.then(function (result) {
 					if (result) {
-						vm.limpar();
-						listar();
+						limpar();
+						// listar();
 						IsAlertService.showSuccess('Registro salvo !');
 					}
 				});
@@ -80,17 +74,17 @@
 				});
 		}
 
-		function listar(funcao) {
-			vm.listaCarregada = false;
-			SelecaoService.listar()
-				.then(function (result) {
-					vm.selecoes = result;
-					vm.listaCarregada = true;
-					if (funcao) {
-						funcao();
-					}
-				});
-		}
+		// function listar(funcao) {
+		// 	vm.listaCarregada = false;
+		// 	SelecaoService.listar()
+		// 		.then(function (result) {
+		// 			vm.selecoes = result;
+		// 			vm.listaCarregada = true;
+		// 			if (funcao) {
+		// 				funcao();
+		// 			}
+		// 		});
+		// }
 
 		function listarProgramas() {
 			vm.listaProgramasCarregada = false;
@@ -145,18 +139,50 @@
 			var steppers = $mdStepper('selecao');
 			steppers.next();
 			if (steppers.currentStep === 1) {
-				vm.listarAvaliadores();
+				listarAvaliadores();
 			} else if (steppers.currentStep === 2) {
-				vm.listarCandidatos();
+				listarCandidatos();
 			} else if (steppers.currentStep === 3) {
-				vm.listarCriterios();
+				listarCriterios();
 			}
 		}
 
 		function back() {
 			var steppers = $mdStepper('selecao');
 			steppers.back();
+		}
 
+		function finalizar() {
+			var steppers = $mdStepper('selecao');
+			salvar();
+			steppers.next();
+		}
+
+		function addAvaliador(avaliador) {
+			var index = vm.selecao.avaliadores.indexOf(avaliador);
+			if (index != -1) {
+				vm.selecao.avaliadores.splice(index, 1);
+			} else {
+				vm.selecao.avaliadores.push(avaliador)
+			}
+		}
+
+		function addCandidato(candidato) {
+			var index = vm.selecao.candidatos.indexOf(candidato);
+			if (index != -1) {
+				vm.selecao.candidatos.splice(index, 1);
+			} else {
+				vm.selecao.candidatos.push(candidato)
+			}
+		}
+
+		function addCriterio(criterio) {
+			var index = vm.selecao.criterios.indexOf(criterio);
+			if (index != -1) {
+				vm.selecao.criterios.splice(index, 1);
+			} else {
+				vm.selecao.criterios.push(criterio)
+			}
 		}
 	}
 })();

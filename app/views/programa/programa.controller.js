@@ -33,9 +33,9 @@
 			ProgramaService.salvar(vm.programa)
 				.then(function (result) {
 					if (result) {
+						IsAlertService.showSuccess('Registro salvo !');
 						vm.limpar();
 						vm.listar();
-						IsAlertService.showSuccess('Registro salvo !');
 					}
 				});
 		}

@@ -17,6 +17,7 @@
 				largura: '@',
 				icone: '@',
 				tamanho: '@',
+				tipo: '@',
 				ngModel: '=',
 				ngRequired: '='
 			}
@@ -26,6 +27,7 @@
 		function link($scope, element, attrs, formCtrl) {
 			$scope.formCtrl = formCtrl;
 			$scope.inputName = 'isInputText' + $scope.$id;
+			$scope.tipo = $scope.tipo ? $scope.tipo : 'text';
 		}
 	}
 

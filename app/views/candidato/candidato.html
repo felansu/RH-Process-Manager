@@ -2,24 +2,24 @@
     <div class="col s8 offset-s2">
         <div class="card white hoverable">
             <div class="card-content">
+
                 <md-button ng-if="vm.listaCarregada && !!vm.candidatos" class="md-icon-button collapse right activator"
                            aria-label="Lista de candidatos"
                            ng-click="vm.switchCard()">
-                    <md-tooltip>Lista de candidatos</md-tooltip>
+                    <md-tooltip>Lista de critérios</md-tooltip>
                     <i class="material-icons right">list</i>
                 </md-button>
 
                 <div class="tituloCentralizado">
-                    <span class="card-title">Cadastro de {{vm.titulo}}</span>
+                    <span class="card-title">Cadastro de {{vm.tituloPagina}}</span>
                 </div>
 
                 <div class="progress" ng-if="!vm.listaCarregada">
                     <div class="indeterminate"></div>
                 </div>
 
-                <form class="separador" novalidate>
+                <form name="candidatoForm" class="separador">
                     <div class="row">
-
                         <is-input-text label="Nome completo"
                                        largura="12"
                                        icone="account_circle"
@@ -36,6 +36,7 @@
 
                         <is-input-text label="E-mail"
                                        largura="6"
+                                       tipo="email"
                                        icone="email"
                                        ng-model="vm.candidato.email"
                                        ng-required="true">
@@ -52,53 +53,101 @@
                                    largura="6"
                                    icone="class"
                                    ng-model="vm.candidato.sexo"
-                                   lista="vm.listarSexos"
+                                   function="vm.listarSexos"
                                    ng-required="true"
-                                   mensagem="Sexo"
-                                   control="vm.selectControlSexo">
+                                   mensagem="Sexo">
                         </is-select>
 
                         <is-select label="Formação"
                                    largura="4"
                                    icone="class"
                                    ng-model="vm.candidato.formacao"
-                                   lista="vm.listarFormacoes"
+                                   function="vm.listarFormacoes"
                                    ng-required="true"
-                                   mensagem="Formação"
-                                   control="vm.selectControlFormacao">
+                                   mensagem="Formação">
                         </is-select>
 
-                        <!--<is-input-text label="Curso"-->
-                        <!--largura="8"-->
-                        <!--icone="school"-->
-                        <!--ng-model="vm.candidato.curso"-->
-                        <!--ng-required="true">-->
-                        <!--</is-input-text>-->
+                        <is-input-text label="Curso"
+                                       largura="8"
+                                       icone="school"
+                                       ng-model="vm.candidato.curso"
+                                       ng-required="true">
+                        </is-input-text>
 
-                        <!--<is-date label="Data inicio"-->
-                        <!--largura="6"-->
-                        <!--icone="date_range"-->
-                        <!--ng-model="vm.candidato.dataInicio"-->
-                        <!--ng-required="true">-->
-                        <!--</is-date>-->
+                        <is-date label="Data inicio"
+                                 largura="6"
+                                 icone="date_range"
+                                 ng-model="vm.candidato.dataInicio"
+                                 ng-required="true">
+                        </is-date>
 
-                        <!--<is-date label="Data fim"-->
-                        <!--largura="6"-->
-                        <!--icone="date_range"-->
-                        <!--ng-model="vm.candidato.dataFim"-->
-                        <!--ng-required="true">-->
-                        <!--</is-date>-->
+                        <is-date label="Data fim"
+                                 largura="6"
+                                 icone="date_range"
+                                 ng-model="vm.candidato.dataFim"
+                                 ng-required="true">
+                        </is-date>
 
                     </div>
                     <div class="card-action">
-                        <button class="waves-effect waves-light btn"
-                                ng-click="vm.salvar()">Salvar
+                        <button class="waves-effect waves-light btn "
+                                ng-click="vm.salvar()"
+                                ng-disabled="candidatoForm.$invalid">Salvar
                         </button>
                         <button class="waves-effect waves-light btn"
-                                ng-click="vm.limpar()">Limpar
+                                ng-click="vm.limpar()"
+                                ng-disabled=" !vm.candidato.nome && !vm.candidato.telefone && !vm.candidato.email &&
+                                !vm.candidato.dataNascimento && !vm.candidato.sexo &&
+                                !vm.candidato.formacao && !vm.candidato.curso &&
+                                !vm.candidato.dataInicio && !vm.candidato.dataFim">
+                            Limpar
                         </button>
                     </div>
                 </form>
+            </div>
+            <div class="card-reveal">
+                <md-button class="md-icon-button collapse right"
+                           aria-label="Fechar"
+                           ng-click="vm.switchCard()">
+                    <md-tooltip>Fechar</md-tooltip>
+                    <i class="material-icons right">close</i>
+                </md-button>
+
+                <div class="tituloCentralizado">
+                    <span class="card-title">Lista de {{vm.tituloPagina}}</span>
+                </div>
+                <table class="highlight separador">
+                    <thead>
+                    <tr>
+                        <th data-field="descricao" class="col l4 m4 s4">Nome</th>
+                        <th data-field="tipo" class="col l3 m3 s3">Telefone</th>
+                        <th data-field="tipo" class="col l2 m2 s2">E-mail</th>
+                        <th data-field="acoes" class="col l3 m3 s3 center">Ações</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="(key, value) in vm.candidatos">
+                        <td class="col l4 m4 s4">{{value.nome}}</td>
+                        <td class="col l3 m3 s3">{{value.telefone}}</td>
+                        <td class="col l2 m2 s2">{{value.email}}</td>
+                        <td class="col l3 m3 s3 center">
+                            <md-button class="md-icon-button semEspaco"
+                                       aria-label="Fechar"
+                                       ng-click="vm.editar(key)">
+                                <md-tooltip>Editar</md-tooltip>
+                                <a href="#" class="material-icons black-text">edit</a>
+                            </md-button>
+                            <md-button class="md-icon-button semEspaco"
+                                       aria-label="Fechar"
+                                       ng-click="vm.eliminar(key)">
+                                <md-tooltip>Eliminar</md-tooltip>
+                                <a href="#" class="material-icons red-text">delete</a>
+                            </md-button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

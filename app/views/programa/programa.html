@@ -18,15 +18,14 @@
                     <div class="indeterminate"></div>
                 </div>
 
-                <form class="separador">
+                <form name="formPrograma" class="separador">
                     <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">description</i>
-                            <input id="nome" type="text"
-                                   ng-model="vm.programa.nome">
-                            <label for="nome">Nome do programa</label>
-                        </div>
-
+                        <is-input-text label="Nome do programa"
+                                       largura="12"
+                                       icone="description"
+                                       ng-model="vm.programa.nome"
+                                       ng-required="true">
+                        </is-input-text>
 
                         <is-select label="Tipo"
                                    largura="12"
@@ -44,14 +43,15 @@
                                  ng-model="vm.programa.dataPrograma"
                                  ng-required="true">
                         </is-date>
-
                     </div>
                     <div class="card-action">
                         <button class="waves-effect waves-light btn"
-                                ng-click="vm.salvar()">Salvar
+                                ng-click="vm.salvar()"
+                                ng-disabled="formPrograma.$invalid">Salvar
                         </button>
                         <button class="waves-effect waves-light btn"
-                                ng-click="vm.limpar()">Limpar
+                                ng-click="vm.limpar()"
+                                ng-disabled="!vm.programa.nome && !vm.programa.unidade && !vm.programa.dataPrograma">Limpar
                         </button>
                     </div>
                 </form>
@@ -65,7 +65,7 @@
                 </md-button>
 
                 <div class="tituloCentralizado">
-                    <span class="card-title">Lista de {{vm.tituloPagina}}</span>
+                    <span class="card-title">Lista de {{vm.tituloPagina}}s</span>
                 </div>
                 <table class="highlight separador">
                     <thead>

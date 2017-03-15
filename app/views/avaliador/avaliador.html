@@ -1,61 +1,119 @@
-<div class="row" ng-controller="AvaliadorController as vm">
-    <div class="col s6 offset-s3">
+<div class="row">
+    <div class="col s8 offset-s2">
         <div class="card white hoverable">
             <div class="card-content">
-                <span class="card-title">Cadastro de avaliador</span>
-                <form>
+
+                <md-button ng-if="vm.listaCarregada && !!vm.avaliadores" class="md-icon-button collapse right activator"
+                           aria-label="Lista de avaliadores"
+                           ng-click="vm.switchCard()">
+                    <md-tooltip>Lista de avaliadores</md-tooltip>
+                    <i class="material-icons right">list</i>
+                </md-button>
+
+                <div class="tituloCentralizado">
+                    <span class="card-title">Cadastro de {{vm.tituloPagina}}</span>
+                </div>
+
+                <div class="progress" ng-if="!vm.listaCarregada">
+                    <div class="indeterminate"></div>
+                </div>
+
+                <form name="formAvaliador" class="separador">
                     <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">account_circle</i>
-                            <input id="nome" type="text" class="validate"
-                                   ng-model="vm.avaliador.nome">
-                            <label for="nome">Nome completo</label>
-                        </div>
+                        <is-input-text label="Nome completo"
+                                       largura="12"
+                                       icone="account_circle"
+                                       ng-model="vm.avaliador.nome"
+                                       ng-required="true">
+                        </is-input-text>
 
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">email</i>
-                            <input id="email" type="email" class="validate"
-                                   ng-model="vm.avaliador.email">
-                            <label for="email">Email</label>
-                        </div>
+                        <is-input-text label="E-mail"
+                                       tipo="email"
+                                       largura="12"
+                                       icone="email"
+                                       ng-model="vm.avaliador.email"
+                                       ng-required="true">
+                        </is-input-text>
 
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">vpn_key</i>
-                            <input id="password_1"
-                                   type="password"
-                                   class="validate"
-                                   ng-model="vm.avaliador.senha"
-                                   required>
-                            <label for="password_1">Senha</label>
-                        </div>
+                        <is-input-text label="Senha"
+                                       tipo="password"
+                                       largura="6"
+                                       icone="vpn_key"
+                                       ng-model="vm.avaliador.senha"
+                                       ng-required="true">
+                        </is-input-text>
 
-                        <div class="input-field col s6">
-                            <input id="password_2"
-                                   type="password"
-                                   class="validate"
-                                   ng-model="vm.senhaRepetida"
-                                   required>
-                            <label for="password_2">Digite a senha novamente</label>
-                        </div>
+                        <is-input-text label="Digite a senha novamente"
+                                       tipo="password"
+                                       largura="6"
+                                       ng-model="vm.senhaRepetida"
+                                       ng-required="true">
+                        </is-input-text>
 
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">work</i>
-                            <input id="funcao" type="text" class="validate"
-                                   ng-model="vm.avaliador.funcao">
-                            <label for="funcao">Função</label>
-                        </div>
+                        <is-input-text label="Função"
+                                       icone="work"
+                                       largura="12"
+                                       ng-model="vm.avaliador.funcao"
+                                       ng-required="true">
+                        </is-input-text>
 
                     </div>
                     <div class="card-action">
-                        <button class="waves-effect waves-light btn"
+                        <button class="waves-effect waves-light btn "
                                 ng-click="vm.salvar()"
-                                ng-disabled="vm.avaliador.senha != vm.senhaRepetida">Salvar
+                                ng-disabled="formAvaliador.$invalid">Salvar
                         </button>
                         <button class="waves-effect waves-light btn"
-                                ng-click="vm.limpar()">Limpar
+                                ng-click="vm.limpar()"
+                                ng-disabled="!vm.avaliador.nome && !vm.avaliador.email && !vm.avaliador.funcao && !vm.senhaRepetida && !vm.avaliador.email && !vm.avaliador.senha">
+                            Limpar
                         </button>
                     </div>
                 </form>
+            </div>
+            <div class="card-reveal">
+                <md-button class="md-icon-button collapse right"
+                           aria-label="Fechar"
+                           ng-click="vm.switchCard()">
+                    <md-tooltip>Fechar</md-tooltip>
+                    <i class="material-icons right">close</i>
+                </md-button>
+
+                <div class="tituloCentralizado">
+                    <span class="card-title">Lista de {{vm.tituloPagina}}s</span>
+                </div>
+                <table class="highlight separador">
+                    <thead>
+                    <tr>
+                        <th data-field="descricao" class="col l4 m4 s4">Nome</th>
+                        <th data-field="tipo" class="col l3 m3 s3">E-mail</th>
+                        <th data-field="acoes" class="col l2 m2 s2">Função</th>
+                        <th data-field="acoes" class="col l3 m3 s3 center">Ações</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="(key, value) in vm.avaliadores">
+                        <td class="col l4 m4 s4">{{value.nome}}</td>
+                        <td class="col l3 m3 s3">{{value.email}}</td>
+                        <td class="col l2 m2 s2">{{value.funcao}}</td>
+                        <td class="col l3 m3 s3 center">
+                            <md-button class="md-icon-button semEspaco"
+                                       aria-label="Fechar"
+                                       ng-click="vm.editar(key)">
+                                <md-tooltip>Editar</md-tooltip>
+                                <a href="#" class="material-icons black-text">edit</a>
+                            </md-button>
+                            <md-button class="md-icon-button semEspaco"
+                                       aria-label="Fechar"
+                                       ng-click="vm.eliminar(key)">
+                                <md-tooltip>Eliminar</md-tooltip>
+                                <a href="#" class="material-icons red-text">delete</a>
+                            </md-button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
