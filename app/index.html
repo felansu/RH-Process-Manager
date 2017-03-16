@@ -70,15 +70,11 @@
                     </md-sidemenu>
                     <md-sidemenu>
                         <md-subheader>Seleções</md-subheader>
-                        <md-button>
-                            <i class="material-icons left">assignment</i>Seleção 01
-                        </md-button>
-                        <md-button>
-                            <i class="material-icons left">assignment</i>Seleção 02
-                        </md-button>
-                        <md-button>
-                            <i class="material-icons left">assignment</i>Seleção 03
-                        </md-button>
+                        <div ng-repeat="(key, selecao) in vm.listaSelecoes">
+                            <md-button ng-click="vm.alterarRota('detalhesSelecao', key)">
+                                <i class="material-icons left">assignment</i>Seleção #{{$index}}
+                            </md-button>
+                        </div>
                     </md-sidemenu>
                 </md-content>
             </md-sidenav>

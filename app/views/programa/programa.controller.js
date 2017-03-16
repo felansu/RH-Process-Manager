@@ -7,13 +7,15 @@
 		.controller('ProgramaController', ProgramaController);
 
 	/* @ngInject */
-	function ProgramaController(ProgramaService, $scope, IsAlertService) {
+	function ProgramaController(ProgramaService, $scope, IsAlertService, CandidatoService) {
 
 		var vm = this;
 
 		vm.tituloPagina = 'Programa';
 		vm.programa = {};
+		vm.programa.candidatos = [];
 		vm.programas = [];
+		vm.listaCandidatos = {};
 
 		vm.salvar = salvar;
 		vm.limpar = limpar;
@@ -22,6 +24,7 @@
 		vm.eliminar = eliminar;
 		vm.editar = editar;
 		vm.switchCard = switchCard;
+		vm.listarCandidatos = listarCandidatos;
 
 		init();
 
@@ -81,6 +84,15 @@
 		function listarUnidades() {
 			return ProgramaService.listarUnidades()
 				.then(function (result) {
+					return result;
+				});
+		}
+
+		function listarCandidatos() {
+			vm.listaCandidatosCarregada = false;
+			return CandidatoService.listar()
+				.then(function (result) {
+					vm.listaCandidatosCarregada = true;
 					return result;
 				});
 		}

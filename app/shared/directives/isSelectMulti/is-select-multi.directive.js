@@ -3,14 +3,14 @@
 
 	angular
 		.module('is')
-		.directive('isSelect', isSelect);
+		.directive('isSelectMulti', isSelectMulti);
 
 	/* @ngInject */
-	function isSelect() {
+	function isSelectMulti() {
 		var directive = {
 			restrict: 'E',
 			require: '^form',
-			templateUrl: 'shared/directives/isSelect/is-select.template.html',
+			templateUrl: 'shared/directives/isSelectMulti/is-select-multi.template.html',
 			link: link,
 			scope: {
 				label: '@',
@@ -24,7 +24,8 @@
 				ngModel: '=',
 				function: '=',
 				ngRequired: '=',
-				control: '='
+				control: '=',
+				ngMultiple: '='
 			}
 		};
 		return directive;

@@ -182,7 +182,7 @@ a {
 	color: rgba(0, 0, 0, 0.87);
 	cursor: pointer;
 	min-height: 35px;
-	height: 35px;
+	height: inherit;
 	line-height: 1.5rem;
 	width: 100%;
 	text-align: left;
@@ -309,4 +309,9 @@ md-step-body {
 
 .input-field {
 	margin-top: 0;
+}
+
+.material-icons {
+
+	line-height: inherit;
 }

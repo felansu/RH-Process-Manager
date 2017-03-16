@@ -1,0 +1,16 @@
+<div class="tituloCentralizado">
+    <h2 ng-bind="vm.selecao.programa.nome"></h2>
+    <span ng-bind="vm.selecao.programa.unidade + ' - ' + vm.selecao.programa.dataPrograma"></span>
+</div>
+<div class="main">
+    <div class="row">
+        <div class="col s4 offset-s4">
+            <div class="card-panel white hoverable">
+                <h4 class="tituloCentralizado">Avaliadores</h4>
+                <div ng-repeat="(key, value) in vm.selecao.avaliadores">
+                    <p ng-bind="value.nome"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

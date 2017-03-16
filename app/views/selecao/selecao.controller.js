@@ -90,6 +90,7 @@
 			vm.listaProgramasCarregada = false;
 			return ProgramaService.listar()
 				.then(function (result) {
+					debugger;
 					vm.listaProgramasCarregada = true;
 					$scope.$applyAsync();
 					return result;

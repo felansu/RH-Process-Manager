@@ -38,6 +38,9 @@ let path = {
 		'app/shared/services/is-storage.service.js',
 		'app/shared/services/is-alert.service.js',
 		'app/views/login/login.controller.js',
+		'app/views/selecao/selecao.controller.js',
+		'app/views/selecao/detalhes-selecao.controller.js',
+		'app/views/selecao/selecao.service.js',
 		'app/views/dashboard/dashboard.controller.js',
 		'app/views/dashboard/dashboard.service.js',
 		'app/views/avaliador/avaliador.controller.js',
@@ -47,9 +50,7 @@ let path = {
 		'app/views/candidato/candidato.controller.js',
 		'app/views/candidato/candidato.service.js',
 		'app/views/programa/programa.controller.js',
-		'app/views/programa/programa.service.js',
-		'app/views/selecao/selecao.controller.js',
-		'app/views/selecao/selecao.service.js'
+		'app/views/programa/programa.service.js'
 	],
 	HTML: [
 		'app/**/**/*.json',

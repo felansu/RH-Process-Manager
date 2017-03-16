@@ -20,6 +20,7 @@
                                                ng-required="true"
                                                mensagem="Selecione o programa"
                                                control="vm.selectControl"
+                                               key-as-value="true"
                                                show="nome">
                                     </is-select>
                                     <button class="btn waves-effect waves-light right"
@@ -51,14 +52,14 @@
 
                             <form>
                                 <div class="row">
-                                    <ul class="collection" ng-repeat="avaliador in vm.listaAvaliadores">
+                                    <ul class="collection" ng-repeat="(key, avaliador) in vm.listaAvaliadores">
                                         <li class="collection-item avatar ">
                                             <i class="material-icons circle">account_circle</i>
                                             <span class="title" ng-bind="avaliador.nome"></span>
                                             <p ng-bind="avaliador.funcao"></p>
                                             <p class="secondary-content">
                                                 <input type="checkbox"
-                                                       ng-click="vm.addAvaliador(avaliador)"
+                                                       ng-click="vm.addAvaliador(key)"
                                                        id="{{avaliador+$index}}"/>
                                                 <label for="{{avaliador+$index}}"></label>
                                             </p>
@@ -95,13 +96,13 @@
 
                             <form>
                                 <div class="row">
-                                    <ul class="collection" ng-repeat="candidato in vm.listaCandidatos">
+                                    <ul class="collection" ng-repeat="(key, candidato) in vm.listaCandidatos">
                                         <li class="collection-item ">
                                             <span class="title" ng-bind="candidato.nome"></span>
                                             <p class="secondary-content">
                                                 <input type="checkbox"
                                                        id="{{candidato+$index}}"
-                                                       ng-click="vm.addCandidato(candidato)"/>
+                                                       ng-click="vm.addCandidato(key)"/>
                                                 <label for="{{candidato+$index}}"></label>
                                             </p>
                                         </li>
@@ -137,13 +138,13 @@
 
                             <form>
                                 <div class="row">
-                                    <ul class="collection" ng-repeat="criterio in vm.listaCriterios">
+                                    <ul class="collection" ng-repeat="(key, criterio) in vm.listaCriterios">
                                         <li class="collection-item ">
                                             <span class="title" ng-bind="criterio.descricao"></span>
                                             <p class="secondary-content">
                                                 <input type="checkbox"
                                                        id="{{criterio+$index}}"
-                                                       ng-click="vm.addCriterio(criterio)"/>
+                                                       ng-click="vm.addCriterio(key)"/>
                                                 <label for="{{criterio+$index}}"></label>
                                             </p>
                                         </li>

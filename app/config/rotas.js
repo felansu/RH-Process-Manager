@@ -72,6 +72,17 @@
 			controllerAs: 'vm'
 		};
 
+		const detalhesSelecao = {
+			name: 'detalhesSelecao',
+			url: '/detalhesSelecao',
+			templateUrl: 'views/selecao/detalhesSelecao.html',
+			controller: 'DetalhesSelecaoController',
+			controllerAs: 'vm',
+			params: {
+				key: null
+			}
+		};
+
 		$stateProvider
 			.state('other', other)
 			.state('login', login)
@@ -80,7 +91,8 @@
 			.state('criterio', criterio)
 			.state('candidato', candidato)
 			.state('programa', programa)
-			.state('selecao', selecao);
+			.state('selecao', selecao)
+			.state('detalhesSelecao', detalhesSelecao);
 	}
 
 })();

@@ -3,7 +3,8 @@
         <div class="card white hoverable">
             <div class="card-content">
 
-                <md-button ng-if="vm.listaCarregada && !!vm.programas" class="md-icon-button collapse right activator"
+                <md-button ng-if="vm.listaCarregada && vm.listaCandidatosCarregada && !!vm.programas"
+                           class="md-icon-button collapse right activator"
                            aria-label="Lista de programas"
                            ng-click="vm.switchCard()">
                     <md-tooltip>Lista de programas</md-tooltip>
@@ -28,7 +29,7 @@
                         </is-input-text>
 
                         <is-select label="Tipo"
-                                   largura="12"
+                                   largura="6"
                                    icone="extension"
                                    ng-model="vm.programa.unidade"
                                    function="vm.listarUnidades"
@@ -38,12 +39,23 @@
                         </is-select>
 
                         <is-date label="Data do programa"
-                                 largura="12"
+                                 largura="6"
                                  icone="date_range"
                                  ng-model="vm.programa.dataPrograma"
                                  ng-required="true">
                         </is-date>
+
+                        <is-select-multi label="Tipo"
+                                         largura="12"
+                                         icone="extension"
+                                         ng-model="vm.programa.candidatos"
+                                         function="vm.listarCandidatos"
+                                         show="nome"
+                                         ng-required="true"
+                                         mensagem="Selecione os candidatos">
+                        </is-select-multi>
                     </div>
+
                     <div class="card-action">
                         <button class="waves-effect waves-light btn"
                                 ng-click="vm.salvar()"
@@ -51,7 +63,8 @@
                         </button>
                         <button class="waves-effect waves-light btn"
                                 ng-click="vm.limpar()"
-                                ng-disabled="!vm.programa.nome && !vm.programa.unidade && !vm.programa.dataPrograma">Limpar
+                                ng-disabled="!vm.programa.nome && !vm.programa.unidade && !vm.programa.dataPrograma && !vm.programa.candidatos">
+                            Limpar
                         </button>
                     </div>
                 </form>

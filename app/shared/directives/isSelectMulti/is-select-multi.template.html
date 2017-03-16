@@ -1,7 +1,11 @@
 <div class="input-field col s{{largura}}">
     <i ng-if="icone" class="material-icons prefix">{{::icone}}</i>
     <select id="{{selectName}}"
-            name="{{selectName}}" class="" ng-model="ngModel" material-select watch>
+            name="{{selectName}}"
+            ng-model="ngModel"
+            material-select
+            multiple
+            watch>
         <option value=""
                 disabled selected>{{::mensagem}}
         </option>
