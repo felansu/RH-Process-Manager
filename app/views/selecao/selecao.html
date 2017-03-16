@@ -1,5 +1,5 @@
 <md-stepper id="selecao" md-linear="true">
-    <md-step md-label="Programa">
+    <md-step md-label="Seleção do programa">
         <div class="progress" ng-if="!vm.listaProgramasCarregada">
             <div class="indeterminate"></div>
         </div>
@@ -35,131 +35,59 @@
             </div>
         </md-step-body>
     </md-step>
-    <md-step md-label="Avaliadores">
-        <div class="progress" ng-if="!vm.listaAvaliadoresCarregada">
-            <div class="indeterminate"></div>
-        </div>
-        <md-step-body ng-show="vm.listaAvaliadoresCarregada" class="fadein fadeout">
-            <div class="row">
-                <div class="col s6 offset-s3 card-centered">
-                    <div class="card white hoverable">
-
-                        <div class="card-content">
-
-                            <div class="tituloCentralizado">
-                                <span class="card-title">Avaliadores</span>
-                            </div>
-
-                            <form>
-                                <div class="row">
-                                    <ul class="collection" ng-repeat="(key, avaliador) in vm.listaAvaliadores">
-                                        <li class="collection-item avatar ">
-                                            <i class="material-icons circle">account_circle</i>
-                                            <span class="title" ng-bind="avaliador.nome"></span>
-                                            <p ng-bind="avaliador.funcao"></p>
-                                            <p class="secondary-content">
-                                                <input type="checkbox"
-                                                       ng-click="vm.addAvaliador(key)"
-                                                       id="{{avaliador+$index}}"/>
-                                                <label for="{{avaliador+$index}}"></label>
-                                            </p>
-                                        </li>
-                                    </ul>
-                                    <button class="btn waves-effect waves-light left"
-                                            ng-click="vm.back()">Anterior
-                                    </button>
-                                    <button class="btn waves-effect waves-light right"
-                                            ng-click="vm.next()">Próximo
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </md-step-body>
-    </md-step>
-    <md-step md-label="Candidatos">
-        <div class="progress" ng-if="!vm.listaCandidatosCarregada">
-            <div class="indeterminate"></div>
-        </div>
-        <md-step-body ng-show="vm.listaCandidatosCarregada" class="fadein fadeout">
-            <div class="row">
-                <div class="col s6 offset-s3 card-centered">
-                    <div class="card white hoverable">
-
-                        <div class="card-content">
-
-                            <div class="tituloCentralizado">
-                                <span class="card-title">Candidatos</span>
-                            </div>
-
-                            <form>
-                                <div class="row">
-                                    <ul class="collection" ng-repeat="(key, candidato) in vm.listaCandidatos">
-                                        <li class="collection-item ">
-                                            <span class="title" ng-bind="candidato.nome"></span>
-                                            <p class="secondary-content">
-                                                <input type="checkbox"
-                                                       id="{{candidato+$index}}"
-                                                       ng-click="vm.addCandidato(key)"/>
-                                                <label for="{{candidato+$index}}"></label>
-                                            </p>
-                                        </li>
-                                    </ul>
-                                    <button class="btn waves-effect waves-light left"
-                                            ng-click="vm.back()">Anterior
-                                    </button>
-                                    <button class="btn waves-effect waves-light right"
-                                            ng-click="vm.next()">Próximo
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </md-step-body>
-    </md-step>
-    <md-step md-label="Critérios">
+    <md-step md-label="Avaliação de critérios">
         <div class="progress" ng-if="!vm.listaCriteriosCarregada">
             <div class="indeterminate"></div>
         </div>
         <md-step-body ng-show="vm.listaCriteriosCarregada" class="fadein fadeout">
             <div class="row">
-                <div class="col s6 offset-s3 card-centered">
+                <div class="col s12 card-centered">
                     <div class="card white hoverable">
-
                         <div class="card-content">
+                            <ul class="collapsible popout" data-collapsible="accordion" watch>
+                                <li ng-repeat="(key, criterio) in vm.listaCriterios">
+                                    <div class="collapsible-header"><i class="mdi-image-filter-drama"></i>{{criterio.descricao}}
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <form>
+                                            <table class="highlight">
+                                                <thead>
+                                                <tr>
+                                                    <th data-field="id">Candidato</th>
+                                                    <th data-field="Critério">Critério</th>
+                                                </tr>
+                                                </thead>
 
-                            <div class="tituloCentralizado">
-                                <span class="card-title">Critérios</span>
-                            </div>
-
-                            <form>
-                                <div class="row">
-                                    <ul class="collection" ng-repeat="(key, criterio) in vm.listaCriterios">
-                                        <li class="collection-item ">
-                                            <span class="title" ng-bind="criterio.descricao"></span>
-                                            <p class="secondary-content">
-                                                <input type="checkbox"
-                                                       id="{{criterio+$index}}"
-                                                       ng-click="vm.addCriterio(key)"/>
-                                                <label for="{{criterio+$index}}"></label>
-                                            </p>
-                                        </li>
-                                    </ul>
-                                    <button class="btn waves-effect waves-light left"
-                                            ng-click="vm.back()">Anterior
-                                    </button>
-                                    <button class="btn waves-effect waves-light right"
-                                            ng-click="vm.finalizar()">Finalizar
-                                    </button>
-                                </div>
-                            </form>
+                                                <tbody>
+                                                <tr ng-repeat="candidato in vm.listaCandidatosPrograma">
+                                                    <td ng-bind="candidato.nome"></td>
+                                                    <td>
+                                                        <is-criterio largura="12"
+                                                                     label="Lista de candidatos"
+                                                                     icone="create_new_folder"
+                                                                     ng-model="vm.selecao.programa"
+                                                                     lista="vm.listaCandidatos"
+                                                                     ng-required="true"
+                                                                     mensagem="Selecione a nota"
+                                                                     criterio="criterio">
+                                                        </is-criterio>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+                <button class="btn waves-effect waves-light left"
+                        ng-click="vm.back()">Anterior
+                </button>
+                <button class="btn waves-effect waves-light right"
+                        ng-click="vm.finalizar()">Finalizar
+                </button>
             </div>
         </md-step-body>
     </md-step>

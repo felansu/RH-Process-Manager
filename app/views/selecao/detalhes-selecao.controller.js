@@ -21,7 +21,6 @@
 			SelecaoService.getByKey($stateParams.key)
 				.then(function (result) {
 					vm.selecao = result;
-					debugger;
 				});
 		}
 

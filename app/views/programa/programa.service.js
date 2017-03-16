@@ -13,6 +13,7 @@
 		self.eliminar = eliminar;
 		self.listar = listar;
 		self.listarUnidades = listarUnidades;
+		self.listarCandidatosPrograma = listarCandidatosPrograma;
 
 		function salvar(programa) {
 			if (programa.key) {
@@ -61,6 +62,30 @@
 			function result(response) {
 				return response.data;
 			}
+		}
+
+		function listarCandidatosPrograma(key) {
+			return firebase.database().ref('programas').child(key).once('value').then(function (response) {
+				var promises = [];
+				var programa = response.val();
+
+				var candidatosResult = [];
+
+				programa.candidatos.forEach(function (candidato) {
+					var promiseCandidatos = firebase.database()
+						.ref('candidatos')
+						.child(candidato)
+						.once('value')
+						.then(function (candidatoResponse) {
+							candidatosResult.push(candidatoResponse.val());
+						});
+					promises.push(promiseCandidatos);
+				});
+
+				return Promise.all(promises).then(function (data) {
+					return candidatosResult;
+				});
+			});
 		}
 	}
 
