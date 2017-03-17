@@ -37,6 +37,7 @@ let path = {
 		'app/shared/directives/**/*.js',
 		'app/shared/services/is-storage.service.js',
 		'app/shared/services/is-alert.service.js',
+		'app/shared/filters/is-range.filter.js',
 		'app/views/login/login.controller.js',
 		'app/views/selecao/selecao.controller.js',
 		'app/views/selecao/detalhes-selecao.controller.js',

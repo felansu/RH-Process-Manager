@@ -1,0 +1,12 @@
+<div class="col s{{largura}}">
+    <i ng-show="icone" class="material-icons prefix">{{::icone}}</i>
+    <p class="range-field">
+        <label for="{{selectName}}" ng-bind="(label) + ': '+(ngModel)"></label>
+        <input type="range"
+               name="{{selectName}}"
+               id="{{selectName}}"
+               min="{{minimo}}"
+               max="{{maximo}}"
+               ng-model="ngModel"/>
+    </p>
+</div>

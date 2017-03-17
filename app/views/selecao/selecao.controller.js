@@ -58,7 +58,7 @@
 				});
 		}
 
-		function getCandidatosPrograma() {
+		function listarCandidatosPrograma() {
 			vm.listaCandidatosProgramaCarregada = false;
 			ProgramaService.listarCandidatosPrograma(vm.selecao.programa)
 				.then(function (result) {
@@ -81,7 +81,7 @@
 			steppers.next();
 			if (steppers.currentStep === 1) {
 				listarCriterios();
-				getCandidatosPrograma();
+				listarCandidatosPrograma();
 			}
 		}
 

@@ -1,37 +1,17 @@
-<div class="input-field col s{{largura}}" ng-show="criterio.tipo == 'Numérico'">
-    <!--<i ng-if="icone" class="material-icons prefix">{{::icone}}</i>-->
-    <select id="{{::selectName}}"
-            name="{{::selectName}}"
-            class=""
-            ng-model="ngModel"
-            material-select
-            watch>
-        <option value="" disabled selected>{{mensagem}}</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-    </select>
-</div>
+<is-range ng-show="criterio.tipo == 'Numérico'"
+          label="{{label}}"
+          largura="{{largura}}"
+          icone="{{icone}}"
+          minimo="{{minimo}}"
+          maximo="{{maximo}}"
+          ng-model="ngModel"
+          ng-required="ngRequired"></is-range>
 
-<div class="input-field col s{{largura}}" ng-show="criterio.tipo == 'Verdadeiro / Falso'">
-    <!--<i ng-if="icone" class="material-icons prefix">{{::icone}}</i>-->
-    <!--<select id="{{selectName}}"-->
-    <!--name="{{selectName}}" class="" ng-model="ngModel" material-select watch>-->
-    <!--<option value=""-->
-    <!--disabled selected>{{::mensagem}}-->
-    <!--</option>-->
-    <!--<option ng-repeat="(k, v) in getLista() track by $index"-->
-    <!--ng-value="keyAsValue ? k : v[show] ? v[show] : v">{{v[show] ? v[show] : v}}-->
-    <!--</option>-->
-    <!--</select>-->
-    Verdadeiro / Falso
+<div class="switch input-field col s{{largura}}" ng-show="criterio.tipo == 'Verdadeiro / Falso'">
+    <label>
+        <input type="checkbox" ng-model="ngModel">
+        <span class="lever"></span>
+    </label>
 </div>
 
 

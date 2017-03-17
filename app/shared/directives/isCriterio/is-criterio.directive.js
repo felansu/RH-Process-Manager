@@ -16,6 +16,8 @@
 				label: '@',
 				largura: '@',
 				icone: '@',
+				maximo: '@',
+				minimo: '@',
 				tamanhoIcone: '@',
 				mensagem: '@',
 				show: '@',
