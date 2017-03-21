@@ -1,30 +1,29 @@
-<is-range ng-show="criterio.tipo == 'Numérico'"
-          label="{{label}}"
-          largura="{{largura}}"
-          icone="{{icone}}"
-          minimo="{{minimo}}"
-          maximo="{{maximo}}"
-          ng-model="ngModel"
-          ng-required="ngRequired"></is-range>
-
-<div class="switch input-field col s{{largura}}" ng-show="criterio.tipo == 'Verdadeiro / Falso'">
-    <label>
-        <input type="checkbox" ng-model="ngModel">
-        <span class="lever"></span>
-    </label>
+<div class="input-field col s{{::largura}}" ng-show="criterio.tipo == 'Numérico'">
+    <input class="input-field "
+           id="{{::rangeName}}"
+           name="{{::rangeName}}"
+           type="{{::tipo}}"
+           ng-model="ngModel"
+           ng-required="ngRequired">
+    <label for="{{::rangeName}}" ng-bind="::label">Descrição</label>
 </div>
 
+<div class="input-field col s{{::largura}}" ng-show="criterio.tipo == 'Verdadeiro / Falso'">
+    <input class="input-field "
+           id="{{::booleanName}}"
+           name="{{::booleanName}}"
+           type="{{::tipo}}"
+           ng-model="ngModel"
+           ng-required="ngRequired">
+    <label for="{{::booleanName}}" ng-bind="::label">Descrição</label>
+</div>
 
-<div class="input-field col s{{largura}}" ng-show="criterio.tipo == 'Texto'">
-    <!--<i ng-if="icone" class="material-icons prefix">{{::icone}}</i>-->
-    <!--<select id="{{selectName}}"-->
-    <!--name="{{selectName}}" class="" ng-model="ngModel" material-select watch>-->
-    <!--<option value=""-->
-    <!--disabled selected>{{::mensagem}}-->
-    <!--</option>-->
-    <!--<option ng-repeat="(k, v) in getLista() track by $index"-->
-    <!--ng-value="keyAsValue ? k : v[show] ? v[show] : v">{{v[show] ? v[show] : v}}-->
-    <!--</option>-->
-    <!--</select>-->
-    Texto
+<div class="input-field col s{{::largura}}" ng-show="criterio.tipo == 'Texto'">
+    <input class="input-field "
+           id="{{::inputName}}"
+           name="{{::inputName}}"
+           type="{{::tipo}}"
+           ng-model="ngModel"
+           ng-required="ngRequired">
+    <label for="{{::inputName}}" ng-bind="::label">Descrição</label>
 </div>

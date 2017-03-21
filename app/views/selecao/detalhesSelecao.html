@@ -1,3 +1,5 @@
+{{vm.selecao}}
+
 <div class="tituloCentralizado">
     <h2 ng-bind="vm.selecao.programa.nome"></h2>
     <span ng-bind="vm.selecao.programa.unidade + ' - ' + vm.selecao.programa.dataPrograma"></span>
@@ -9,6 +11,14 @@
                 <h4 class="tituloCentralizado">Avaliadores</h4>
                 <div ng-repeat="(key, value) in vm.selecao.avaliadores">
                     <p ng-bind="value.nome"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col s4 offset-s4">
+            <div class="card-panel white hoverable">
+                <h4 class="tituloCentralizado">Critérios</h4>
+                <div ng-repeat="(key, value) in vm.selecao.criterios">
+                    <p ng-bind="value.descricao"></p>
                 </div>
             </div>
         </div>

@@ -29,6 +29,7 @@
 					.child('selecoes')
 					.push(selecao)
 					.then(function (result) {
+						debugger;
 						return !!result.key;
 					});
 			}
@@ -58,6 +59,7 @@
 			return firebase.database().ref('selecoes').child(key).once('value').then(function (response) {
 				var promises = [];
 				var selecao = response.val();
+
 				var selecaoResult = {};
 				selecaoResult.programa = {};
 				selecaoResult.avaliadores = [];
@@ -73,37 +75,39 @@
 					});
 				promises.push(promisePrograma);
 
-				selecao.avaliadores.forEach(function (avaliador) {
-					var promiseAvaliadores = firebase.database()
-						.ref('avaliadores')
-						.child(avaliador)
-						.once('value')
-						.then(function (avaliadorResponse) {
-							selecaoResult.avaliadores.push(avaliadorResponse.val());
-						});
-					promises.push(promiseAvaliadores);
+				var criterios = $.map(selecao.criterios, function (value, key) {
+					return {key: key, value: value};
 				});
 
-				selecao.candidatos.forEach(function (candidato) {
-					var promiseCandidatos = firebase.database()
-						.ref('candidatos')
-						.child(candidato)
-						.once('value')
-						.then(function (candidatoResponse) {
-							selecaoResult.candidatos.push(candidatoResponse.val());
-						});
-					promises.push(promiseCandidatos);
-				});
-
-				selecao.criterios.forEach(function (criterio) {
+				criterios.forEach(function (criterio) {
 					var promiseCriterios = firebase.database()
 						.ref('criterios')
-						.child(criterio)
+						.child(criterio.key)
 						.once('value')
 						.then(function (criterioResponse) {
-							selecaoResult.criterios.push(criterioResponse.val());
+
+							var criterioResult = criterioResponse.val();
+							criterioResult.key = criterio.key;
+							criterioResult.notas = [];
+
+							var keysCandidatos = Object.keys(criterio.value);
+
+							keysCandidatos.forEach(function (key) {
+								firebase.database()
+									.ref('candidatos')
+									.child(key)
+									.once('value')
+									.then(function (candidatoResponse) {
+										criterioResult.notas.push({
+											"nota": criterio.value[key],
+											"candidato": candidatoResponse.val().nome
+										});
+										selecaoResult.criterios.push(criterioResult);
+									});
+							});
 						});
 					promises.push(promiseCriterios);
+
 				});
 
 				return Promise.all(promises).then(function (data) {

@@ -76,8 +76,10 @@
 						.ref('candidatos')
 						.child(candidato)
 						.once('value')
-						.then(function (candidatoResponse) {
-							candidatosResult.push(candidatoResponse.val());
+						.then(function (response) {
+							var candidatoResponse = response.val();
+							candidatoResponse.key = response.key;
+							candidatosResult.push(candidatoResponse);
 						});
 					promises.push(promiseCandidatos);
 				});

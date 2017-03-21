@@ -16,6 +16,7 @@
 				label: '@',
 				largura: '@',
 				icone: '@',
+				tipo: '@',
 				maximo: '@',
 				minimo: '@',
 				tamanhoIcone: '@',
@@ -34,10 +35,13 @@
 
 		function link($scope, element, attrs, formCtrl) {
 			$scope.formCtrl = formCtrl;
-			$scope.selectName = 'isCriterio' + $scope.$id;
-			$scope.selectControl = $scope.control || {};
+			$scope.rangeName = 'isInputRange' + $scope.$id;
+			$scope.inputName = 'isInputText' + $scope.$id;
+			$scope.booleanName = 'isInputBoolean' + $scope.$id;
 			$scope.largura = $scope.largura ? $scope.largura : '12';
 			$scope.tamanhoIcone = $scope.tamanhoIcone ? $scope.tamanhoIcone : '48';
+			$scope.tipo = $scope.tipo ? $scope.tipo : 'text';
+
 			var lista = $scope.lista ? $scope.lista : [];
 
 			if (typeof $scope.function === 'function') {
@@ -49,6 +53,7 @@
 			$scope.getLista = function () {
 				return lista;
 			};
+
 		}
 	}
 

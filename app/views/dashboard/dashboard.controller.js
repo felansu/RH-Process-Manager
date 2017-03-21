@@ -24,10 +24,7 @@
 		function init() {
 			AuthService.firebaseIsInitialized();
 			$state.go(vm.isUsuarioLogado() ? 'dashboard' : 'login');
-			// $(document).ready(function () {
-			// 	$scope.$apply();
-			// });
-			listarSelecoes()
+			listarSelecoes();
 		}
 
 		function alterarRota(state, key) {

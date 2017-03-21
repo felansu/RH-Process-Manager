@@ -47,17 +47,19 @@
                     <div class="card white hoverable">
                         <div class="card-content">
                             <div ng-repeat="(key, candidato) in vm.listaCandidatosPrograma">
+                                {{vm.selecao}}
                                 <div class="row">
                                     <form class="container">
                                         <div>{{candidato.nome}}</div>
                                         <div ng-repeat="(key, criterio) in vm.listaCriterios">
                                             <is-criterio label="{{criterio.descricao}}"
-                                                         largura="3"
+                                                         largura="6"
                                                          minimo="0"
                                                          maximo="100"
-                                                         ng-model="teste"
+                                                         ng-model="vm.selecao.criterios[key][candidato.key]"
                                                          criterio="criterio"
-                                                         ng-required="true"></is-criterio>
+                                                         ng-required="true">
+                                            </is-criterio>
                                         </div>
                                     </form>
                                 </div>

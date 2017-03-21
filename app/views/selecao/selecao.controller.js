@@ -15,7 +15,6 @@
 		vm.tituloPagina = 'Seleção';
 
 		vm.selecao = {};
-		vm.selecao.criterios = [];
 		vm.selecoes = [];
 		vm.listaProgramas = {};
 		vm.listaCriterios = {};
@@ -102,7 +101,7 @@
 
 			vm.selecao.avaliador = usuarioLogado;
 			var steppers = $mdStepper('selecao');
-			// salvar();
+			salvar();
 			steppers.next();
 		}
 
