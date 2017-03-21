@@ -6,7 +6,7 @@
 		.service('SelecaoService', SelecaoService);
 
 	/* @ngInject */
-	function SelecaoService() {
+	function SelecaoService($q) {
 		var self = this;
 
 		self.salvar = salvar;
@@ -29,7 +29,6 @@
 					.child('selecoes')
 					.push(selecao)
 					.then(function (result) {
-						debugger;
 						return !!result.key;
 					});
 			}
@@ -61,10 +60,12 @@
 				var selecao = response.val();
 
 				var selecaoResult = {};
-				selecaoResult.programa = {};
-				selecaoResult.avaliadores = [];
-				selecaoResult.candidatos = [];
 				selecaoResult.criterios = [];
+
+				var db = {};
+				db.criterios = [];
+				db.candidatos = [];
+
 
 				var promisePrograma = firebase.database()
 					.ref('programas')
@@ -73,45 +74,56 @@
 					.then(function (programaResponse) {
 						selecaoResult.programa = programaResponse.val();
 					});
-				promises.push(promisePrograma);
 
-				var criterios = $.map(selecao.criterios, function (value, key) {
-					return {key: key, value: value};
-				});
+				var promiseCriterios = firebase.database()
+					.ref()
+					.child('criterios')
+					.once('value')
+					.then(function (criteriosResponse) {
+						db.criterios = criteriosResponse.val();
+					});
 
-				criterios.forEach(function (criterio) {
-					var promiseCriterios = firebase.database()
-						.ref('criterios')
-						.child(criterio.key)
-						.once('value')
-						.then(function (criterioResponse) {
+				var promiseCandidatos = firebase.database()
+					.ref()
+					.child('candidatos')
+					.once('value')
+					.then(function (candidatosResponse) {
+						db.candidatos = candidatosResponse.val();
+					});
 
-							var criterioResult = criterioResponse.val();
-							criterioResult.key = criterio.key;
-							criterioResult.notas = [];
+				promises.push(promisePrograma, promiseCriterios, promiseCandidatos);
 
-							var keysCandidatos = Object.keys(criterio.value);
+				function montaResponse(selecao, db) {
+					var deferred = $q.defer();
 
-							keysCandidatos.forEach(function (key) {
-								firebase.database()
-									.ref('candidatos')
-									.child(key)
-									.once('value')
-									.then(function (candidatoResponse) {
-										criterioResult.notas.push({
-											"nota": criterio.value[key],
-											"candidato": candidatoResponse.val().nome
-										});
-										selecaoResult.criterios.push(criterioResult);
+					var criteriosSelecao = Object.entries(selecao.criterios);
+					var criterioTemp = {};
+					for (var i = 0; i < criteriosSelecao.length; i++) {
+						var obj = criteriosSelecao[i];
+						if (db.criterios[obj[0]] != null) {
+							criterioTemp = db.criterios[obj[0]];
+							var candidatos = Object.entries(obj[1]);
+							criterioTemp.nota = [];
+							for (var y = 0; y < candidatos.length; y++) {
+								var candidato = candidatos[y];
+								if (db.candidatos[candidato[0]] != null) {
+									criterioTemp.nota.push({
+										"candidato": db.candidatos[candidato[0]],
+										"nota": candidato[1]
 									});
-							});
-						});
-					promises.push(promiseCriterios);
+								}
+							}
+							selecaoResult.criterios.push(criterioTemp);
+						}
+					}
+					deferred.resolve();
+					return deferred.promise;
+				}
 
-				});
-
-				return Promise.all(promises).then(function (data) {
-					return selecaoResult;
+				return Promise.all(promises).then(function () {
+					return montaResponse(selecao, db).then(function () {
+						return selecaoResult;
+					});
 				});
 			});
 		}

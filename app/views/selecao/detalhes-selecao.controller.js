@@ -7,7 +7,7 @@
 		.controller('DetalhesSelecaoController', DetalhesSelecaoController);
 
 	/* @ngInject */
-	function DetalhesSelecaoController(SelecaoService, IsAlertService, $stateParams) {
+	function DetalhesSelecaoController(SelecaoService, IsAlertService, $stateParams, $scope) {
 
 		var vm = this;
 
@@ -21,6 +21,7 @@
 			SelecaoService.getByKey($stateParams.key)
 				.then(function (result) {
 					vm.selecao = result;
+					$scope.$applyAsync();
 				});
 		}
 
