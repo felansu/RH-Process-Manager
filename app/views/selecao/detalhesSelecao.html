@@ -1,26 +1,20 @@
-{{vm.selecao.criterios}}
-
-<div class="tituloCentralizado">
-    <h2 ng-bind="vm.selecao.programa.nome"></h2>
-    <span ng-bind="vm.selecao.programa.unidade + ' - ' + vm.selecao.programa.dataPrograma"></span>
+<div class="progress" ng-show="!vm.selecao.programa">
+    <div class="indeterminate"></div>
 </div>
-<div class="main">
+<div ng-show="vm.selecao.programa">
+    <div class="tituloCentralizado">
+        <h2 ng-bind="vm.selecao.programa.nome"></h2>
+        <span ng-bind="vm.selecao.programa.unidade + ' - ' + vm.selecao.programa.dataPrograma"></span>
+    </div>
     <div class="row">
-        <div class="col s4 offset-s4">
+        <div class="col s4" ng-repeat="(key, value) in vm.selecao.criterios">
+            <h4 class="tituloCentralizado" ng-bind="value.descricao"></h4>
             <div class="card-panel white hoverable">
-                <h4 class="tituloCentralizado">Avaliadores</h4>
-                <div ng-repeat="(key, value) in vm.selecao.avaliadores">
-                    <p ng-bind="value.nome"></p>
-                </div>
-            </div>
-        </div>
-        <div class="col s4 offset-s4">
-            <div class="card-panel white hoverable">
-                <h4 class="tituloCentralizado">Critérios</h4>
-                <div ng-repeat="(key, value) in vm.selecao.criterios">
-                    <p ng-bind="value.descricao"></p>
+                <div ng-repeat="(key, value) in value.nota">
+                    <li ng-bind="(value.candidato.nome) + ' ' + (value.nota)"></li>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

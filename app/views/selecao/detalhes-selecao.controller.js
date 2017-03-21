@@ -18,11 +18,16 @@
 		init();
 
 		function init() {
-			SelecaoService.getByKey($stateParams.key)
-				.then(function (result) {
-					vm.selecao = result;
-					$scope.$applyAsync();
-				});
+			var key = $stateParams.key;
+			if (key) {
+				SelecaoService.getByKey(key)
+					.then(function (result) {
+						vm.selecao = result;
+						$scope.$applyAsync();
+					});
+			}else{
+				IsAlertService.showError("Sem dados")
+			}
 		}
 
 	}
