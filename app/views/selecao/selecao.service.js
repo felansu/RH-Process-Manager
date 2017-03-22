@@ -109,7 +109,7 @@
 								if (db.candidatos[candidato[0]] != null) {
 									criterioTemp.nota.push({
 										"candidato": db.candidatos[candidato[0]],
-										"nota": candidato[1]
+										"nota": parseInt(candidato[1])
 									});
 								}
 							}

@@ -315,3 +315,11 @@ md-step-body {
 
 	line-height: inherit;
 }
+
+.top-survivor {
+	color: green;
+}
+
+.cor-sim-cor-nao {
+	background-color: #f4f4f4;
+}
