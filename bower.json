@@ -29,6 +29,7 @@
     "firebase": "v3.7.0",
     "angularfire": "v2.3.0",
     "angular-local-storage": "v0.5.2",
-    "material-steppers": "^1.0.3"
+    "material-steppers": "^1.0.3",
+    "angular-chart.js": "^1.1.1"
   }
 }

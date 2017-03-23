@@ -2,21 +2,6 @@ html {
 	font-size: 14px;
 }
 
-body {
-	background-color: whitesmoke;
-	background-image: url("../../assets/img/indra.png");
-	background-repeat: no-repeat;
-	background-size: 250px;
-	background-position: 95% 95%;
-	display: flex;
-	min-height: 100vh;
-	flex-direction: column;
-	position: relative;
-	margin: 0;
-	padding-bottom: 6rem;
-	font-family: "Helvetica Neue", Arial, sans-serif;
-	height: 100%;
-}
 
 #panell {
 	margin-top: 100px;

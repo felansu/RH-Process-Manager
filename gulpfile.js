@@ -27,7 +27,9 @@ let path = {
 		'bower_components/angularfire/dist/angularfire.min.js',
 		'bower_components/angular-local-storage/dist/angular-local-storage.min.js',
 		'bower_components/material-steppers/dist/material-steppers.min.js',
-		'bower_components/angular-materialize/src/angular-materialize.js'
+		'bower_components/angular-materialize/src/angular-materialize.js',
+		'bower_components/chart.js/dist/Chart.min.js',
+		'bower_components/angular-chart.js/dist/angular-chart.min.js'
 	],
 	APP: [
 		'app/assets/**/*.js',
